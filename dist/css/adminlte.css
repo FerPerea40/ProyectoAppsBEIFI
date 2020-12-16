@@ -596,7 +596,12 @@ pre code {
   margin-right: -7.5px;
   margin-left: -7.5px;
 }
-
+.contenedor {
+  width: 33.33%;
+  
+  display: flex;
+  justify-content: center
+}
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -2566,7 +2571,11 @@ fieldset:disabled a.btn {
   border-color: #007bff;
   box-shadow: none;
 }
-
+.centrado {
+  width: 110px; 
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
 .btn-primary:hover {
   color: #fff;
   background-color: #0069d9;
