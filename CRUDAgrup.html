@@ -858,7 +858,9 @@
               <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Tabla de Grupos</h3>
-               
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
+                Nuevo Grupo
+                </button>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -943,6 +945,91 @@
     </section>
     <!-- /.content -->
   </div>
+
+<div class="modal fade" id="modal-primary">
+  <div class="modal-dialog">
+    <div class="modal-content bg-primary">
+      <div class="modal-header">
+        <h4 class="modal-title">Editar Grupo</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>Nombre</label>
+        <input type="text" class="form-control" placeholder="Enter ...">
+        <label>Descripción</label>
+        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-light">Guardar Cambios</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="modal-danger">
+  <div class="modal-dialog">
+    <div class="modal-content bg-danger">
+      <div class="modal-header">
+        <h4 class="modal-title">Se eliminará de forma Permanente</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-light">Eliminar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="modal-success">
+  <div class="modal-dialog">
+    <div class="modal-content bg-success">
+      <div class="modal-header">
+        <h4 class="modal-title">Success Modal</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label>Nombre</label>
+        <input type="text" class="form-control" placeholder="Enter ...">
+        <label>Descripción</label>
+        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-light">Save changes</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
