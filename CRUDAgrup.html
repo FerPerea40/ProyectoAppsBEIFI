@@ -104,7 +104,7 @@
 
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+ <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -114,7 +114,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
+              <li class="breadcrumb-item"><a href="#"> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-nuevo">
                 Nuevo Grupo
                 </button></a></li>
               <li class="breadcrumb-item"><a href="#">Inicio</a></li>
@@ -124,7 +124,6 @@
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -140,60 +139,24 @@
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
-                    <th width = "15%" >Acción</th>
+                    <th width = "22%" >Acción</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr>
                     <td>Grupo</td>
                     <td>Descríbelo </td>
-                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">
+                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-editar">
                       Editar
                     </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminar">
                       Eliminar
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-asignar">
+                      Asignar
                     </button></td>
                   </tr>
-                  <tr>
-                    <td>Grupo</td>
-                    <td>Descríbelo </td>
-                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">
-                      Editar
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
-                      Eliminar
-                    </button></td>
-                  </tr>
-                  <tr>
-                    <td>Grupo</td>
-                    <td>Descríbelo </td>
-                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">
-                      Editar
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
-                      Eliminar
-                    </button></td>
-                  </tr>
-                  <tr>
-                    <td>Grupo</td>
-                    <td>Descríbelo </td>
-                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">
-                      Editar
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
-                      Eliminar
-                    </button></td>
-                  </tr>
-                  <tr>
-                    <td>Grupo</td>
-                    <td>Descríbelo </td>
-                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">
-                      Editar
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
-                      Eliminar
-                    </button></td>
-                  </tr>                 
+                                  
                   </tbody>
                   <tfoot>
                   <tr>
@@ -210,9 +173,10 @@
           </div>
           <!-- /.col -->
     </section>
+ </div>
 
-
-<div class="modal fade" id="modal-primary">
+ <!-- /.modal -->
+<div class="modal fade" id="modal-editar">
   <div class="modal-dialog">
     <div class="modal-content bg-primary">
       <div class="modal-header">
@@ -236,9 +200,7 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
-
-<div class="modal fade" id="modal-danger">
+<div class="modal fade" id="modal-eliminar">
   <div class="modal-dialog">
     <div class="modal-content bg-danger">
       <div class="modal-header">
@@ -256,13 +218,12 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-
-<div class="modal fade" id="modal-success">
+<div class="modal fade" id="modal-nuevo">
 
   <div class="modal-dialog">
     <div class="modal-content bg-success">
       <div class="modal-header">
-        <h4 class="modal-title">Success Modal</h4>
+        <h4 class="modal-title">Nuevo Grupo</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -274,8 +235,168 @@
         <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-outline-light">Save changes</button>
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-light">Guardar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="modal-asignar">
+
+  <div class="modal-dialog">
+    <div class="modal-content bg-secondary">
+      <div class="modal-header">
+        <h4 class="modal-title">Asignar a Grupo</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      
+        <section class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1>Asignar a grupo</h1>
+                </div>
+                
+              </div>
+            </div><!-- /.container-fluid -->
+          </section>
+      
+          <section class="content">
+            <div class="container-fluid">
+                    <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">Tabla de personal</h3>
+                     
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Funcion</th>
+                          <th width = "15%" >Acción</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                           <td>Nombre</td>
+                          <td>Funcion </td>
+                          <td>
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                            Eliminar
+                          </button></td>
+                        </tr>
+                        <tr>
+                          <td>Nombre</td>
+                          <td>Funcion </td>
+                          <td> 
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                            Eliminar
+                          </button></td>
+                        </tr>
+                        <tr>
+                          <td>Nombre</td>
+                          <td>Funcion </td>
+                          <td> 
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                            Eliminar
+                          </button></td>
+                        </tr>
+                        <tr>
+                          <td>Nombre</td>
+                          <td>Funcion </td>
+                          <td> 
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                            Eliminar
+                          </button></td>
+                        </tr>
+                        <tr>
+                          <td>Nombre</td>
+                          <td>Funcion </td>
+                          <td> 
+                          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                            Eliminar
+                          </button></td>
+                        </tr>                 
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Descrpción</th>
+                          <th>Acción</th>
+                        </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                    <div class="modal-body">
+                      <label>Selecione el grupo</label>
+                      <select class="form-control">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                        <option>option 3</option>
+                        <option>option 4</option>
+                        <option>option 5</option>
+                      </select>
+                    <ol class="breadcrumb float-sm-right">
+                      <li class="breadcrumb-item"><a href="#"> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
+                        Asignar
+                        </button></a></li></ol>
+                      </div>
+                      <table id="example1" class="table table-bordered table-striped">
+                          <thead>
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Funcion</th>
+                            <th width = "15%" >Acción</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          <tr>
+                             <td>Nombre</td>
+                            <td>Funcion </td>
+                            <td>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                              Eliminar
+                            </button></td>
+                          </tr>
+                          <tr>
+                            <td>Nombre</td>
+                            <td>Funcion </td>
+                            <td> 
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                              Eliminar
+                            </button></td>
+                          </tr>
+                                        
+                          </tbody>
+                          <tfoot>
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Descrpción</th>
+                            <th>Acción</th>
+                          </tr>
+                          </tfoot>
+                        </table>
+                        <ol class="breadcrumb float-sm-right">
+                          <li class="breadcrumb-item"><a href="#"> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success">
+                            Cerrar
+                            </button></a></li></ol>
+                      </div>
+                    <!-- /.card-body -->
+                  </div>
+       
+               </section>
+
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-outline-light">Guardar</button>
       </div>
     </div>
     <!-- /.modal-content -->
