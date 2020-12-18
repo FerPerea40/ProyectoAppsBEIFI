@@ -143,7 +143,9 @@
                   <tr>
                     <td>Grupo</td>
                     <td>Descríbelo </td>
-                    <td> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-editar">
+                    <td> 
+                      <div class="form-group text-center">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-editar">
                       Editar
                     </button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminar">
@@ -151,7 +153,7 @@
                     </button>
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-asignar">
                       Asignar
-                    </button></td>
+                    </button></div></td>
                   </tr>
                                   
                   </tbody>
@@ -252,7 +254,8 @@
   <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="modal-asignar">
+<div class="modal fade" id="modal-asignar"  style="overflow-y: scroll;">
+ 
   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -284,7 +287,7 @@
                       <tr>
                         <th>Nombre</th>
                         <th>Función</th>
-                        <th width = "22%" >Acción</th>
+                        <th width="22%" >Acción</th>
                       </tr>
                       </thead>
                       <tbody>
@@ -292,9 +295,12 @@
                         <td>Grupo</td>
                         <td>Descríbelo </td>
                         <td>
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu">
+                          <div class="form-group row justify-content-center">
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu">
                           Eliminar
                         </button>
+                      </div>
+                        </td>
                         </tr>
                                       
                       </tbody>
@@ -315,6 +321,8 @@
         </section>
        
         <div class="modal-body" >
+        <div class="row" >
+        <div class="col-8">
           <label>Selecione el grupo</label>
           <select class="form-control1" >
             <option>option 1</option>
@@ -323,9 +331,13 @@
             <option>option 4</option>
             <option>option 5</option>
           </select> 
+        </div>
+        <div class="col-4 text-center">
           <button type="button" class="btn btn-warning"  >
             Asignar
           </button>
+        </div>
+        </div>
         </div>
 
         <section class="content-header">
@@ -358,9 +370,11 @@
                         <td>Grupo</td>
                         <td>Descríbelo </td>
                         <td> 
+                          <div class="form-group row justify-content-center">
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-elidelgrupo">
                           Eliminar
                         </button>
+                          </div>
                       </td>
                       </tr>
                    
@@ -429,7 +443,6 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-
 
 
 
