@@ -72,7 +72,12 @@ body {
 [tabindex="-1"]:focus:not(:focus-visible) {
   outline: 0 !important;
 }
-
+.centradote{
+	height: 550px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
 hr {
   box-sizing: content-box;
   height: 0;
