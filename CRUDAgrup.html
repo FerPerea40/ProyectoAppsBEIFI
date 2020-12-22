@@ -112,9 +112,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#"> <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-nuevo">
-                Nuevo Grupo
-                </button></a></li>
+              <li class="breadcrumb-item"><a href="#"> </a></li>
               
             </ol>
           </div>
@@ -126,8 +124,23 @@
       <div class="container-fluid">
               <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Tabla de Grupos</h3>
+
+                <div class="row">
+                  <div class="col-8">
+                    <h3 class="card-title">Tabla de Grupos</h3>
+                  </div> 
+                   <div class="col-4">
+                        <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-nuevo">
+                       Nuevo Grupo
+                     </button>
+
+
+                </div>
+              </div>
+
                
+               
+                
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -217,6 +230,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro que deseas eliminarlo permanentemente?&hellip;</p> 
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
@@ -332,8 +348,8 @@
             <option>option 5</option>
           </select> 
         </div>
-        <div class="col-4 text-center">
-          <button type="button" class="btn btn-warning"  >
+        <div class="col-4">
+          <button type="button" class="btn btn-warning float-right"  >
             Asignar
           </button>
         </div>
@@ -416,6 +432,9 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div class="modal-body">
+        <p>¿Estás seguro que deseas eliminarlo permanentemente?&hellip;</p> 
+      </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-outline-light">Eliminar</button>
@@ -434,6 +453,9 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro que deseas eliminarlo del grupo?&hellip;</p> 
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
