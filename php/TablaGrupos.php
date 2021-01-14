@@ -1,16 +1,17 @@
 <?php
    include("conexion.php");
-     $link=connect();
 	
-	$consulta="SELECT * from 'grupo' ";
-	$todos= mysqli_query($link,$consulta) or die('No consulta');
+	$consulta="SELECT * from grupo ";
+	
 
-    $respuesta = array();
-	while($row = mysqli_fetch_array($todos,MYSQLI_ASSOC)){
-	$respuesta['grupo'] = $row;
-    echo "alert('".$row['nombres']." - ".$row['departamento']." - ".$row['sueldo']."')";
-	   	} 
-		echo json_encode($respuesta);
-        echo $respuesta;die;
+	$link=connect();
+    $respuesta = mysqli_query($link, $consulta) or die("Error al ejecutar la consulta");
+    mysqli_close($link);
+
+    $rows = array();
+    while ($r = mysqli_fetch_assoc($respuesta)) {
+        $rows[] = $r;
+    }
+    echo json_encode($rows);
 
 	?>

@@ -16,6 +16,48 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.css">
+  <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
+  <script>
+  
+
+  $(".cuerpo-tabla ").ready(function() {
+    console.log( "document loaded" );
+    $.ajax({
+    url: 'php/TablaGrupos.php',
+    type: 'POST',
+    DataType: 'json',
+    success: function(respuesta) {
+      var resultado=JSON.parse(respuesta);
+      var contenido = '';
+$.each(resultado, function(index, value) {
+    contenido += '<tr>'+
+       '<td>'+value.nombre+'</th>'+
+       '<td>'+value.descripcion+'</td>'+
+       "<td>"+" <div class='form-group text-center'>"+
+       "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-editar'>"+
+        "Editar"+ "</button>"+
+        "<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'>"+
+        "Eliminar"+ "</button>"+
+        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'>"+
+         "Asignar"+"</button></div>"+" </td>"+ "</tr>"
+    '</tr>';
+});
+
+$(".cuerpo-tabla").html(contenido);
+
+
+   
+       }
+         });
+        });
+ 
+  $( window ).on( "load", function() {
+      console.log( "window loaded" );
+   
+  });
+  </script>
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -124,7 +166,6 @@
       <div class="container-fluid">
               <div class="card">
               <div class="card-header">
-
                 <div class="row">
                   <div class="col-8">
                     <h3 class="card-title">Tabla de Grupos</h3>
@@ -137,13 +178,8 @@
 
                 </div>
               </div>
-
-               
-               
-                
               </div>
               <!-- /.card-header -->
-              <button type="button" class="btn btn-outline-light submitBtn " onclick="listarGrupo()" >caca</button>
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
@@ -153,37 +189,8 @@
                     <th width = "22%" >Acción</th>
                   </tr>
                   </thead>
-                  <tbody id="tablaGrupos">
-                   
-                <script>  
-           
-
- function listarGrupo(){
-  $.ajax({
-    url: 'php/TablaGrupos.php',
-    type: 'POST',
-    DataType: 'json',
-    success: function(respuesta) {
-               var valor = '';
-  respuesta.grupo.forEach(grupo => {
-    valor += "<tr>"+
-     "<td>" + grupo.nombre + "</td>"+
-     "<td>" + grupo.descripcion + "</td>"+
-      "<td>"+" <div class='form-group text-center'>"+
-       "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-editar'>"+
-        "Editar"+ "</button>"+
-        "<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'>"+
-        "Eliminar"+ "</button>"+
-        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'>"+
-         "Asignar"+"</button></div>"+" </td>"+ "<tr>";
-  })
-  $("#tablaGrupos").html(valor);
-    }
-  });
-}
-listarGrupo();
-
-                    </script>              
+                  <tbody class="cuerpo-tabla">
+                  
                   </tbody>
                   <tfoot>
                   <tr>
@@ -296,56 +303,6 @@ listarGrupo();
 
  <!-- CREAR GRUPO-->
 <script>
-
-function LLenarTabla(){
-  var tabla= $('#grupostable').val();
-      
-      }
-
-
-
-function Restaurar(){
-  $('.statusMsg').html('<span style="color:red;">');
-
-}
-function CreateGrupo(){
-  var nombre = $('#nombre').val();
-  var descripcion = $('#descripcion').val();
-  
-  if(nombre.trim() == '' ){
-      alert('Ingrese Nombre.');
-      $('#nombre').focus();
-      return false;
-  }else if(descripcion.trim() == '' ){
-      alert('INgresa Descripción.');
-      $('#descripcion').focus();
-      return false;
-  }else{
-       $.ajax({
-        
-          type:'POST',
-          url:'php/CreateGrupo.php',
-          data:'nombre='+nombre+'&descripcion='+descripcion,
-          beforeSend: function () {
-                $('.submitBtn').attr("disabled","disabled");
-                $('.modal-body').css('opacity', '.5');
-            },
-            success:function(respuesta){
-               if(respuesta == 'ok'){
-                    $('#nombre').val('');
-                    $('#descripcion').val('');
-                    $('.statusMsg').html('<span style="color:white;">Grupo Creado Exitosamente.</p>');
-                }else{
-                    $('.statusMsg').html('<span style="color:red;">Ocurrió un problema, inténtelo de nuevo.</span>');
-                }
-                $('.submitBtn').removeAttr("disabled");
-                $('.modal-body').css('opacity', '');
-                
-            }
-        
-        });
-      }
-    }
 
 </script>
  <!-- /CREAR GRUPO-->
@@ -545,7 +502,7 @@ function CreateGrupo(){
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light">Eliminar</button>
+        <button type="button" class="btn btn-outline-light" onclick="EliminarGrupo()"">Eliminar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -593,6 +550,82 @@ function CreateGrupo(){
 <script src="dist/js/demo.js"></script>
 <!-- Page specific script -->
 <script>
+
+
+function LLenarTabla(){
+  var tabla= $('#grupostable').val();
+      
+      }
+
+function Restaurar(){
+  $('.statusMsg').html('<span style="color:red;">');
+  $(".cuerpo-tabla ").ready(function() {
+    console.log( "document loaded" );
+    $.ajax({
+    url: 'php/TablaGrupos.php',
+    type: 'POST',
+    DataType: 'json',
+    success: function(respuesta) {
+      var resultado=JSON.parse(respuesta);
+      var contenido = '';
+$.each(resultado, function(index, value) {
+    contenido += '<tr>'+
+       '<td>'+value.nombre+'</th>'+
+       '<td>'+value.descripcion+'</td>'+
+       "<td>"+" <div class='form-group text-center'>"+
+       "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-editar'>"+
+        "Editar"+ "</button>"+
+        "<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'>"+
+        "Eliminar"+ "</button>"+
+        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'>"+
+         "Asignar"+"</button></div>"+" </td>"+ "</tr>"
+    '</tr>';
+});
+$(".cuerpo-tabla").html(contenido);
+        }
+         });
+        });
+}
+function CreateGrupo(){
+  var nombre = $('#nombre').val();
+  var descripcion = $('#descripcion').val();
+  
+  if(nombre.trim() == '' ){
+      alert('Ingrese Nombre.');
+      $('#nombre').focus();
+      return false;
+  }else if(descripcion.trim() == '' ){
+      alert('INgresa Descripción.');
+      $('#descripcion').focus();
+      return false;
+  }else{
+       $.ajax({
+        
+          type:'POST',
+          url:'php/CreateGrupo.php',
+          data:'nombre='+nombre+'&descripcion='+descripcion,
+          beforeSend: function () {
+                $('.submitBtn').attr("disabled","disabled");
+                $('.modal-body').css('opacity', '.5');
+            },
+            success:function(respuesta){
+               if(respuesta == 'ok'){
+                    $('#nombre').val('');
+                    $('#descripcion').val('');
+                    $('.statusMsg').html('<span style="color:white;">Grupo Creado Exitosamente.</p>');
+                }else{
+                    $('.statusMsg').html('<span style="color:red;">Ocurrió un problema, inténtelo de nuevo.</span>');
+                }
+                $('.submitBtn').removeAttr("disabled");
+                $('.modal-body').css('opacity', '');
+                
+            }
+         });
+      }
+    }
+
+
+
     $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
