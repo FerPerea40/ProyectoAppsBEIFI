@@ -299,11 +299,8 @@
             <div class="modal-body">
               <label>Selecione el grupo</label>
               <select class="form-control1">
-                <option>option 1</option>
-                <option>option 2</option>
-                <option>option 3</option>
-                <option>option 4</option>
-                <option>option 5</option>
+               
+               
               </select>
             </div>
             <div class="modal-footer justify-content-between">
@@ -360,6 +357,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- Page specific script -->
+<script src="js/extraergrupo.js"></script>
 <script>
   /*$(function() {
     var Toast = Swal.mixin({
@@ -515,8 +513,8 @@
   });*/
   $(function () {
     $("#example1").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false
-      
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
