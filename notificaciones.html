@@ -60,6 +60,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="info">
             <a href="#" class="d-block">NotiPushUPIIZ</a>
+            <p id="usuar"> </p>
           </div>
         </div>
   
@@ -90,7 +91,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="login1.html" class="nav-link">
+                  <a  class="nav-link" id="salida" onclick="salir()">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Salir</p>
                   </a>
@@ -522,7 +523,7 @@
   });
   $(document).ready(function(){
           console.log("Hola nena");
-          $("#grupo").load('php/extraergrupo.php');
+          $('#usuar').load('php/sesioniniciada.php');
   });
   /*$(document).ready(function(){
           console.log("Hola perra");
@@ -631,6 +632,11 @@ $(".tbody1").html(contenido);
          $('#titulo').val('');
          $('#descripcion').val('');
          $("#grupo").load('php/extraergrupo.php');
+    }
+    function salir(){
+          
+          $('#salida').load('php/logout.php');
+          window.location.replace("login1.html");
     }
 </script>
 

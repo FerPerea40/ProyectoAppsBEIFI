@@ -76,10 +76,19 @@
         var clave = $("#clave").val();
         console.log(usuario);
           console.log(clave);
+          if(usuario.trim() == '' ){
+              alert('Digita el nombre.');
+              $('#nombre').focus();
+              return false;
+          }else if(clave.trim() == '' ){
+              alert('Digita la clave.');
+              $('#descripcion').focus();
+              return false;
+          }else{
             $.ajax({
                 
                 method:"GET",
-                url:"http://sistemas.upiiz.ipn.mx/isc/nopu/api/login.php",
+                url:"php/validar.php",
                 data:"usuario="+usuario+"&clave="+clave,
                 DataType: 'json',
                 success: function(respuesta) {
@@ -88,10 +97,13 @@
                     window.location.replace("menu.html");
                     }else{
                     alert("Datos incorrectos");
+                   $("#usuario").val('');
+                    $("#clave").val('');
                    }
               }
           });
         }
+      }
 </script>
 </body>
 </html>
