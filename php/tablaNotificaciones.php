@@ -7,14 +7,14 @@
     $tabla = "";
     
     while ($r = mysqli_fetch_assoc($respuesta)) {
-        $ver = "<div class='form-group row justify-content-center'>
-        <button type='button' value='".$r['idNotificacion']."' id='botoncin' class='btn btn-primary' data-toggle='modal' data-target='#modal-default2' onclick='leerNotificacion(".$r['idNotificacion'].")''>
-         Ver </button></div></td></tr>";
-        $rows[] = $r;
+        $ver = '<div class=\"form-group row justify-content-center\">
+        <button type=\"button\" value=\"'.$r['idNotificacion'].'\" id=\"botoncin\" title=\"Ver\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#modal-default2\" onclick=\"leerNotificacion('.$r['idNotificacion'].')\">
+        Ver</button></div>';
+        $editar = '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Editar\" class=\"btn btn-primary\" data-target=\"#modal-default2\" onclick=\"leerNotificacion('.$r['idNotificacion'].') \"> Ver<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
         $tabla.='{
             "Asunto":"'.$r['titulo'].'",
             "Grupo":"'.$r['nombre'].'",
-            "Acción":"'.$ver.'"
+            "Acción":"'.$editar.'"
           },';
     }
     $tabla = substr($tabla,0, strlen($tabla) - 1);
