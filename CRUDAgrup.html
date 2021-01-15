@@ -19,9 +19,8 @@
   <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   <script>
-   
 
-  $(".cuerpo-tabla ").ready(function() {
+ $(".cuerpo-tabla ").ready(function() {
     console.log( "document loaded" );
     $.ajax({
     url: 'php/TablaGrupos.php',
@@ -31,7 +30,7 @@
       var resultado=JSON.parse(respuesta);
       var contenido = '';
       var i=1;
-$.each(resultado, function(index, value) {
+  $.each(resultado, function(index, value) {
     contenido += '<tr>'+
        '<td>'+value.nombre+'</th>'+
        '<td>'+value.descripcion+'</td>'+
@@ -47,16 +46,12 @@ $.each(resultado, function(index, value) {
 });
 
 $(".cuerpo-tabla").html(contenido);
+   }
+  });
+});
 
-
-   
-       }
-         });
-        });
- 
-  $( window ).on( "load", function() {
+$( window ).on( "load", function() {
       console.log( "window loaded" );
-   
   });
   </script>
 
@@ -212,41 +207,7 @@ $(".cuerpo-tabla").html(contenido);
  </div>
 
 <script>
-  var grupoeliminar;
-function fnselect(i){
- grupoeliminar=i;
-}
 
-function noeliminar(){
-grupoeliminar = '';
-}
-function sieliminar(){
-  $.ajax({
-        type:'POST',
-        url:'php/DeleteGrupo.php',
-        data:'id='+grupoeliminar,
-        beforeSend: function () {
-              $('.submitBtn').attr("disabled","disabled");
-              $('.modal-body').css('opacity', '.5');
-
-          },
-          success:function(respuesta){
-             if(respuesta == 'ok'){
-                $('.statusMsg').html('<span style="color:white;">Grupo Eliminado Exitosamente.</p>');
-                  location.reload();
-
-              }else{
-                  $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
-              }
-              $('.submitBtn').removeAttr("disabled");
-              $('.modal-body').css('opacity', '');
-              
-          }
-       });
-
-
-
-}
 
 
 </script>
@@ -582,7 +543,39 @@ function sieliminar(){
 <script src="dist/js/demo.js"></script>
 <!-- Page specific script -->
 <script>
+var grupoeliminar;
 
+function fnselect(i){grupoeliminar=i;}
+
+function noeliminar(){grupoeliminar = '';}
+
+function sieliminar(){
+  $.ajax({
+        type:'POST',
+        url:'php/DeleteGrupo.php',
+        data:'id='+grupoeliminar,
+        beforeSend: function () {
+              $('.submitBtn').attr("disabled","disabled");
+              $('.modal-body').css('opacity', '.5');
+
+          },
+          success:function(respuesta){
+             if(respuesta == 'ok'){
+                $('.statusMsg').html('<span style="color:white;">Grupo Eliminado Exitosamente.</p>');
+                  location.reload();
+
+              }else{
+                  $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
+              }
+              $('.submitBtn').removeAttr("disabled");
+              $('.modal-body').css('opacity', '');
+              
+          }
+       });
+
+
+
+}
 
 function LLenarTabla(){
   var tabla= $('#grupostable').val();
@@ -601,7 +594,7 @@ function Restaurar(){
       var resultado=JSON.parse(respuesta);
       var contenido = '';
 $.each(resultado, function(index, value) {
-    contenido += '<tr>'+
+        contenido += '<tr>'+
        '<td>'+value.nombre+'</th>'+
        '<td>'+value.descripcion+'</td>'+
        "<td>"+" <div class='form-group text-center'>"+
@@ -618,6 +611,7 @@ $(".cuerpo-tabla").html(contenido);
          });
         });
 }
+
 function CreateGrupo(){
   var nombre = $('#nombre').val();
   var descripcion = $('#descripcion').val();
@@ -658,8 +652,7 @@ function CreateGrupo(){
       }
     }
 
-
-
+ 
     $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -676,6 +669,13 @@ function CreateGrupo(){
      
     }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
   });
+
+
+
+
+
+
+
 </script>
 </body>
 </html>
