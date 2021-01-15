@@ -37,7 +37,7 @@
         "Editar"+ "</button>"+
         "<button id='btn' type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'  value='"+value.idGrupo+"' onclick='fnselect("+value.idGrupo+")'' '>"+
         "Eliminar"+ "</button>"+
-        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'> value='"+value.idGrupo+"' onclick='selAsigGrupo("+value.idGrupo+")'' '>"+
+        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar' value='"+value.idGrupo+"' onclick='selAsigGrupo("+value.idGrupo+")'' '>"+
          "Asignar"+"</button></div>"+" </td>"+ "</tr>"
     '</tr>';
     i++;
@@ -669,8 +669,9 @@ function selAsigGrupo(i){
             alert(respuesta)
             var resultado=JSON.parse(respuesta);
             var contenido = '';
+            alert(resultado);
             $.each(resultado, function(index, value) {
-              contenido= 'kjsdn';
+             
 
 
 
