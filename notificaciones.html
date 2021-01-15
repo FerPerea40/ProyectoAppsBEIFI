@@ -473,6 +473,8 @@
   });*/
   $(function () {
     $("#example1").DataTable({
+      "bDeferRender": true,			
+		  "sPaginationType": "full_numbers",
       "ajax": {
             "url": "php/tablaNotificaciones.php",
             "type": "POST"
