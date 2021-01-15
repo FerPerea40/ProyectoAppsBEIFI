@@ -128,7 +128,7 @@
                     </div>
                     <div class="col-4">
                       
-                         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-success1" id="nueva">
+                         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-success1" id="nueva" onclick="Restaurar()">
                           Nueva
                         </button>
                       
@@ -146,8 +146,8 @@
                     <th width = "15%" >Acción</th>
                   </tr>
                   </thead>
-                  <tbody>
-                  <tr>
+                  <tbody class="tbody1">
+                  <!--tr>
                     <td>Becas</td>
                     <td>Todos </td>
                     <td>
@@ -182,8 +182,8 @@
                         Ver
                       </button></div>
                     </td>
-                  </tr>               
-                  </tbody>
+                  </tr>  -->             
+                  </tbody> 
                   <tfoot>
                   <tr>
                     <th>Asunto</th>
@@ -252,19 +252,15 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" id="modalnot">
               <p><b>Asunto:</b> Reunión</p>
-            </div>
-            <div class="modal-body">
+            
               <p><b>Destinatarios:</b> Academia de sistemas</p>
-            </div>
-            <div class="modal-body">
+           
               <p><b>Descripción:</b></p>
-            </div>
-            <div class="modal-body">
+            
               <p>Se le cita a reunión de academia el próximo jueves 10 de diciembre.</p>
-            </div>
-            <div class="modal-body">
+           
               <p><b>Fecha:</b> 23 de noviembre de 2020</p>
             </div>
             <div class="modal-footer justify-content-between">
@@ -291,10 +287,11 @@
               </button>
             </div>
             <div class="modal-body">
+              <p class="statusMsg"></p>
               <label>Asunto</label>
-              <input type="text" class="form-control" placeholder="Enter ...">
+              <input type="text" class="form-control" placeholder="Enter ..." id="titulo">
               <label>Descripción</label>
-              <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+              <textarea class="form-control" rows="3" placeholder="Enter ..." id="descripcion"></textarea>
             </div>
             <div class="modal-body">
               <label>Selecione el grupo</label>
@@ -303,7 +300,7 @@
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-outline-light">Enviar</button>
+              <button type="button" class="btn btn-outline-light submitBtn" onclick="CreateNotificacion()">Enviar</button>
             </div>
           </div>
           <!-- /.modal-content -->
@@ -355,7 +352,6 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- Page specific script -->
-<script type="text/javascript" src="js/extraergrupo.js"></script>
 <script>
   /*$(function() {
     var Toast = Swal.mixin({
@@ -528,7 +524,114 @@
           console.log("Hola nena");
           $("#grupo").load('php/extraergrupo.php');
   });
-  
+  /*$(document).ready(function(){
+          console.log("Hola perra");
+          $("#tbody1").load('php/tablaNotificaciones.php');          
+  });*/
+  function CreateNotificacion(){
+  var titulo = $('#titulo').val();
+  var descripcion = $('#descripcion').val();
+  var grupo = $('#grupo').val();
+
+  if(titulo.trim() == '' ){
+      alert('Ingrese el asunto.');
+      $('#titulo').focus();
+      return false;
+  }else if(descripcion.trim() == '' ){
+      alert('Ingresa la descripción.');
+      $('#descripcion').focus();
+      return false;
+  }else if(grupo.trim() == '' ){
+      alert('Selecciona el grupo.');
+      $('#grupo').focus();
+      return false;
+  }else{
+       $.ajax({
+        
+          type:'POST',
+          url:'php/CreateNotificacion.php',
+          data:'titulo='+titulo+'&descripcion='+descripcion+'&grupo='+grupo,
+          beforeSend: function () {
+                $('.submitBtn').attr("disabled","disabled");
+                $('.modal-body').css('opacity', '.5');
+            },
+            success:function(respuesta){
+               if(respuesta == 'ok'){
+                    /*$('#nombre').val('');
+                    $('#descripcion').val('');*/
+                    $('.statusMsg').html('<span style="color:white;">Notificación creada exitosamente.</p>');
+                }else{
+                    $('.statusMsg').html('<span style="color:red;">Ocurrió un problema, inténtelo de nuevo.</span>');
+                }
+                $('.submitBtn').removeAttr("disabled");
+                $('.modal-body').css('opacity', '');
+                
+            }
+        
+        });
+      }
+    }
+    
+  $(".tbody1 ").ready(function() {
+    console.log( "document loaded" );
+    $.ajax({
+    url: 'php/tablaNotificaciones.php',
+    type: 'POST',
+    DataType: 'json',
+    success: function(respuesta) {
+      var resultado=JSON.parse(respuesta);
+      var contenido = '';
+      var i=1;
+$.each(resultado, function(index, value) {
+    contenido += '<tr>'+
+       '<td>'+value.titulo+'</th>'+
+       '<td>'+value.nombre+'</td>'+
+       "<td>"+" <div class='form-group row justify-content-center'>"+
+       "<button type='button' value='"+value.idNotificacion+"' id='botoncin' class='btn btn-primary' data-toggle='modal' data-target='#modal-default2' onclick='leerNotificacion("+value.idNotificacion+")''>"+
+        "Ver"+ "</button>"+"</div>"+" </td>"+ "</tr>"
+    '</tr>';
+    
+    i++;
+});
+$(".tbody1").html(contenido);
+        }
+         });
+        });
+        $( window ).on( "load", function() {
+      console.log( "window loaded" );
+   
+  });
+  function leerNotificacion(i){
+        var idNotificacion = i;
+          console.log(idNotificacion);
+            $.ajax({
+                
+                type:'POST',
+                url:'php/mostrarNot.php',
+                data:'idNotificacion='+idNotificacion,
+                DataType: 'json',
+                success: function(respuesta) {
+                    var resultado=JSON.parse(respuesta);
+                    var contenido = '';
+                    var i=1;
+              $.each(resultado, function(index, value) {
+                  contenido += '<p>'+"<b>"+"Asunto: "+"</b>"+value.titulo+"</p>"+
+                 "<p>"+"<b>"+"Destinatarios: "+"</b>"+value.nombre+"</p>"+
+                 "<p>"+"<b>"+"Descripcion: "+"</b>"+"</p>"+
+                 "<p>"+value.descripcion+"</p>"+
+                 "<p>"+"<b>"+"Fecha: "+"</b>"+value.fecha+"</p>";;
+                  i++;
+              });
+              $("#modalnot").html(contenido);
+              }
+          });
+        }
+    function Restaurar(){
+        $('.statusMsg').html('<span style="color:red;">');
+         $('#titulo').val('');
+         $('#descripcion').val('');
+         $("#grupo").load('php/extraergrupo.php');
+    }
 </script>
 
 </body>
