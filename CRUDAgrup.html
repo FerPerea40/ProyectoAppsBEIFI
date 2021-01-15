@@ -19,6 +19,31 @@
   <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   <script>
+
+$(function () {
+    $("#example1").DataTable({
+      "ajax": {
+            "url": "php/TablaGrupos.php",
+            "type": "POST"
+        },
+        "columns": [
+            { "data": "Nombre" },
+            { "data": "Descripcion" },
+            { "data": "Accion" }
+        ],
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
  /*   $(".cuerpo-tabla ").ready(function() {
     $.ajax({
     url: 'php/TablaGrupos.php',
@@ -172,14 +197,14 @@ $( window ).on( "load", function() {
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-              <!--    <thead>
+                 <thead>
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th width = "22%" >Acción</th>
                   </tr>
                   </thead>
-                  <tbody class="cuerpo-tabla">
+                  <tbody>
                   </tbody>
                   <tfoot>
                   <tr>
@@ -187,7 +212,7 @@ $( window ).on( "load", function() {
                     <th>Descrpción</th>
                     <th>Acción</th>
                   </tr>
-                  </tfoot>-->
+                  </tfoot>
                 </table>
               </div>
               <!-- /.card-body -->
@@ -813,10 +838,10 @@ $(function () {
           window.location.replace("login1.html");
           console.log("ya salí carnal");
     }
-    $(document).ready(function(){
+   /* $(document).ready(function(){
           console.log("Hola nena");
           $('#usuar').load('php/sesioniniciada.php');
-   });
+   });*/
    /* $(document).ready(function(){
             var usuario = $('#usuar').val();
             $.ajax({
