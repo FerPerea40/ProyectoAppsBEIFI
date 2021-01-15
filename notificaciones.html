@@ -128,7 +128,7 @@
                     </div>
                     <div class="col-4">
                       
-                         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-success1">
+                         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-success1" id="nueva">
                           Nueva
                         </button>
                       
@@ -298,9 +298,7 @@
             </div>
             <div class="modal-body">
               <label>Selecione el grupo</label>
-              <select class="form-control1">
-               
-               
+              <select class="form-control1" name="grupo" id="grupo">
               </select>
             </div>
             <div class="modal-footer justify-content-between">
@@ -357,7 +355,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 <!-- Page specific script -->
-<script src="js/extraergrupo.js"></script>
+<script type="text/javascript" src="js/extraergrupo.js"></script>
 <script>
   /*$(function() {
     var Toast = Swal.mixin({
@@ -526,6 +524,12 @@
       "responsive": true,
     });
   });
+  $(document).ready(function(){
+          console.log("Hola nena");
+          $("#grupo").load('php/extraergrupo.php');
+  });
+  
 </script>
+
 </body>
 </html>

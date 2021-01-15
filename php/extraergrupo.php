@@ -1,10 +1,13 @@
 <?php
-include ("conexion.php");
-$sql = "SELECT * FROM grupo";
-$result = $mysqli->query($sql);
-while($data = msqli_fetch_array($result)){
-    $grupo[] = $array = array(
-        'idGrupo' => $data['idGrupo'],
-        'nombre' => $data['nombre'] );
-}
-echo json_encode($grupo);
+    include('conexion.php');
+    $con = connect();
+    $consulta = "SELECT * from grupo";
+    $query = mysqli_query($con,$consulta);
+
+    echo '<option value=0></option>';
+        while ($fila = mysqli_fetch_array($query,MYSQLI_ASSOC)) {
+ 
+            echo '<option value="'.$fila['idGrupo'].'">'.$fila['nombre'].'</option>';
+        };
+    
+?>
