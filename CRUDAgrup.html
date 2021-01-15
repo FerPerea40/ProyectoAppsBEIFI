@@ -411,8 +411,8 @@ $( window ).on( "load", function() {
         <p>¿Estás seguro que deseas eliminarlo permanentemente?&hellip;</p> 
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light">Eliminar</button>
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" >Cancelar</button>
+        <button type="button" class="btn btn-outline-light submitBtn" >Eliminar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -688,6 +688,28 @@ function disponibles(){
       }
       function eliminarpersona(){
 
+        $.ajax({
+        type:'POST',
+        url:'php/DeletePerso.php',
+        data:'id='+gruposel,
+        beforeSend: function () {
+              $('.submitBtn').attr("disabled","disabled");
+              $('.modal-body').css('opacity', '.5');
+
+          },
+          success:function(respuesta){
+             if(respuesta == 'ok'){
+                $('.statusMsg').html('<span style="color:white;">persona Eliminado Exitosamente.</p>');
+                  location.reload();
+
+              }else{
+                  $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
+              }
+              $('.submitBtn').removeAttr("disabled");
+              $('.modal-body').css('opacity', '');
+              
+          }
+       });
         jQuery(document).ready(function(){
  
   jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
