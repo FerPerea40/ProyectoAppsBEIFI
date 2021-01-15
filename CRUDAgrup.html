@@ -409,8 +409,12 @@ $( window ).on( "load", function() {
         </button>
       </div>
       <div class="modal-body">
+        <p class="statusMsg"></p>
+        <form role="form">
+          <div class="form-group">
         <p>¿Estás seguro que deseas eliminarlo permanentemente?&hellip;</p> 
       </div>
+    </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal" >Cancelar</button>
         <button type="button" class="btn btn-outline-light submitBtn" onclick="eliminarpersona()" >Eliminar</button>
@@ -418,6 +422,7 @@ $( window ).on( "load", function() {
     </div>
     <!-- /.modal-content -->
   </div>
+</form>
   <!-- /.modal-dialog -->
 </div>
 
@@ -431,8 +436,12 @@ $( window ).on( "load", function() {
         </button>
       </div>
       <div class="modal-body">
+        <p class="statusMsg"></p>
+        <form role="form">
+          <div class="form-group">
         <p>¿Estás seguro que deseas eliminarlo del grupo?&hellip;</p> 
       </div>
+    </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-outline-light" onclick="eliminardegrupo()">Eliminar</button>
@@ -440,6 +449,7 @@ $( window ).on( "load", function() {
     </div>
     <!-- /.modal-content -->
   </div>
+</form>
   <!-- /.modal-dialog -->
 </div>
 <!-- modals -->
@@ -617,7 +627,7 @@ function siUpdateGrupo(){
 }
 
 var gruposel='';
-
+var personaeli='';
 function selAsigGrupo(i){
   disponibles(i);
   registrados(i);
@@ -639,7 +649,7 @@ function registrados(i){
                         '<td>'+value.tipo+' </td>'+
                         '<td>'+
                          '<div class="form-group row justify-content-center">'+
-                        '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-elidelgrupo" value="'+value.idAgrupamiento+' onclick="eliminardegrupo('+value.idAgrupamiento+')">'+
+                        '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-elidelgrupo" value="'+value.idAgrupamiento+' onclick="selelipersona('+value.idAgrupamiento+')">'+
                           'Eliminar'+
                     
          '</button>'+
@@ -673,7 +683,7 @@ function disponibles(i){
                         '<td>'+value.tipo+' </td>'+
                         '<td>'+
                          '<div class="form-group row justify-content-center">'+
-                          '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu" value="'+value.idUsuario+' onclick="eliminarpersona('+value.idUsuario+')">'+
+                          '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu" value="'+value.idUsuario+' onclick="seleliminarpersona('+value.idUsuario+')">'+
                           'Eliminar'+ 
                         '</button>'+
                         '<button type="button" class="btn btn-warning float-right submitBtn" value="'+value.idUsuario+'" onclick="asignarpersona('+value.idUsuario+')"  >'+
@@ -691,12 +701,15 @@ function disponibles(i){
         });
 
 }
+      function seleliminarpersona(i){
+            personaeli=i;
+      }
       function eliminarpersona(){
         
         $.ajax({
         type:'POST',
         url:'php/DeletePerso.php',
-        data:'id='+gruposel,
+        data:'id='+personaeli,
         beforeSend: function () {
               $('.submitBtn').attr("disabled","disabled");
               $('.modal-body').css('opacity', '.5');
@@ -704,24 +717,26 @@ function disponibles(i){
           },
           success:function(respuesta){
              if(respuesta == 'ok'){
-                $('.statusMsg').html('<span style="color:white;">persona Eliminado Exitosamente.</p>');
-                  location.reload();
+                $('.statusMsg').html('<span style="color:white;">Persona Eliminado Exitosamente.</p>');
 
               }else{
                   $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
               }
+              selAsigGrupo(gruposel);
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
               
           }
        });
       }
+  
+  
       function eliminardegrupo(){
       
         $.ajax({
         type:'POST',
         url:'php/DeleteAgrup.php',
-        data:'id='+gruposel,
+        data:'id='+gruposel+'&persona='+personaeli,
         beforeSend: function () {
               $('.submitBtn').attr("disabled","disabled");
               $('.modal-body').css('opacity', '.5');
@@ -730,7 +745,6 @@ function disponibles(i){
           success:function(respuesta){
              if(respuesta == 'ok'){
                 $('.statusMsg').html('<span style="color:white;">persona Eliminado Exitosamente.</p>');
-                  location.reload();
 
               }else{
                   $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
