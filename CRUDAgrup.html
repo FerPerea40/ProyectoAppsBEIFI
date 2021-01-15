@@ -19,7 +19,7 @@
   <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   <script>
-    $(".cuerpo-tabla ").ready(function() {
+ /*   $(".cuerpo-tabla ").ready(function() {
     $.ajax({
     url: 'php/TablaGrupos.php',
     type: 'POST',
@@ -47,7 +47,7 @@ $(".cuerpo-tabla").html(contenido);
   });
 });
 $( window ).on( "load", function() {
-  });
+  });*/
   </script>
 
 </head>
@@ -148,8 +148,7 @@ $( window ).on( "load", function() {
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#"> </a></li>
-              
-            </ol>
+              </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -167,15 +166,13 @@ $( window ).on( "load", function() {
                         <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-nuevo">
                        Nuevo Grupo
                      </button>
-
-
                 </div>
               </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+              <!--    <thead>
                   <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
@@ -190,7 +187,7 @@ $( window ).on( "load", function() {
                     <th>Descrpción</th>
                     <th>Acción</th>
                   </tr>
-                  </tfoot>
+                  </tfoot>-->
                 </table>
               </div>
               <!-- /.card-body -->
@@ -495,6 +492,11 @@ $( window ).on( "load", function() {
 <!-- Page specific script -->
 <script>
 
+
+
+
+
+
 function fnselect(i){gruposel=i;}
 
 function noeliminar(){gruposel = '';}
@@ -749,7 +751,6 @@ function disponibles(i){
               }else{
                   $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
               }
-              selAsigGrupo(gruposel);
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
               
@@ -807,15 +808,15 @@ $(function () {
   
   function salir(){
     
-         // $('#salida').load('php/logout.php');
+          $('#salida').load('php/logout.php');
           
           window.location.replace("login1.html");
           console.log("ya salí carnal");
     }
-    /*$(document).ready(function(){
+    $(document).ready(function(){
           console.log("Hola nena");
           $('#usuar').load('php/sesioniniciada.php');
-   });*/
+   });
    /* $(document).ready(function(){
             var usuario = $('#usuar').val();
             $.ajax({
