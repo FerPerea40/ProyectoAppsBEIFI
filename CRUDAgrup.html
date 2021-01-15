@@ -33,11 +33,11 @@
        '<td>'+value.nombre+'</th>'+
        '<td>'+value.descripcion+'</td>'+
        "<td>"+" <div class='form-group text-center'>"+
-       "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-editar'>"+
+       "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-editar' value='"+value.idGrupo+"' onclick='selUpdateGrupo("+value.idGrupo+")'' '>"+
         "Editar"+ "</button>"+
         "<button id='btn' type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'  value='"+value.idGrupo+"' onclick='fnselect("+value.idGrupo+")'' '>"+
         "Eliminar"+ "</button>"+
-        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'>"+
+        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'> value='"+value.idGrupo+"' onclick='selAsigGrupo("+value.idGrupo+")'' '>"+
          "Asignar"+"</button></div>"+" </td>"+ "</tr>"
     '</tr>';
     i++;
@@ -212,14 +212,13 @@ $( window ).on( "load", function() {
         </button>
       </div>
       <div class="modal-body">
-        <label>Nombre</label>
-        <input type="text" class="form-control" placeholder="Enter ...">
-        <label>Descripción</label>
-        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
+       
+
+
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light">Guardar Cambios</button>
+        <button type="button" class="btn btn-outline-light" onclick="siUpdateGrupo()">Guardar Cambios</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -476,7 +475,7 @@ $( window ).on( "load", function() {
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light" "">Eliminar</button>
+        <button type="button" class="btn btn-outline-light">Eliminar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -525,17 +524,17 @@ $( window ).on( "load", function() {
 <script src="dist/js/demo.js"></script>
 <!-- Page specific script -->
 <script>
-var grupoeliminar;
+var gruposel;
 
-function fnselect(i){grupoeliminar=i;}
+function fnselect(i){gruposel=i;}
 
-function noeliminar(){grupoeliminar = '';}
+function noeliminar(){gruposel = '';}
 
 function sieliminar(){
   $.ajax({
         type:'POST',
         url:'php/DeleteGrupo.php',
-        data:'id='+grupoeliminar,
+        data:'id='+gruposel,
         beforeSend: function () {
               $('.submitBtn').attr("disabled","disabled");
               $('.modal-body').css('opacity', '.5');
@@ -608,7 +607,82 @@ function CreateGrupo(){
       }
     }
 
- 
+function selUpdateGrupo(i){
+  gruposel=i;
+  $.ajax({
+        type:'POST',
+        url:'php/selUpdateGrupo.php',
+        data:'id='+gruposel,
+        beforeSend: function () {
+          },
+          success:function(respuesta){
+            alert(respuesta)
+            var resultado=JSON.parse(respuesta);
+            var contenido = '';
+
+            $.each(resultado, function(index, value) {
+              contenido= '<label>Nombre</label>'+
+              '<input id="nombreed" type="text" class="form-control" value="'+value.nombre+'">'+
+              '<label>Descripción</label>'+
+        '<textarea id="descripcioned" class="form-control" rows="3" value="">'+value.descripcion+'</textarea>';
+              });
+              $(".modal-body").html(contenido);
+            }
+        });
+}
+
+function siUpdateGrupo(){
+  var nombreedi = $('#nombreed').val();
+  var descripcionedi = $('#descripcioned').val();
+  $.ajax({
+        type:'POST',
+        url:'php/UpdateGrupo.php',
+        data:'id='+gruposel+'&nombre='+nombreedi+'&desc='+descripcionedi,
+        beforeSend: function () {
+              $('.submitBtn').attr("disabled","disabled");
+              $('.modal-body').css('opacity', '.5');
+          },
+          success:function(respuesta){
+             if(respuesta == 'ok'){
+                $('.statusMsg').html('<span style="color:white;">Grupo Actualizado Exitosamente.</p>');
+                  location.reload();
+
+              }else{
+                  $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
+              }
+              $('.submitBtn').removeAttr("disabled");
+              $('.modal-body').css('opacity', '');
+              
+          }
+       });
+}
+
+function selAsigGrupo(i){
+  gruposel=i;
+  $.ajax({
+        type:'POST',
+        url:'php/selAsigeGrupo.php',
+        data:'id='+gruposel,
+        beforeSend: function () {
+          },
+          success:function(respuesta){
+            alert(respuesta)
+            var resultado=JSON.parse(respuesta);
+            var contenido = '';
+            $.each(resultado, function(index, value) {
+              contenido= 'kjsdn';
+
+
+
+
+
+
+              });
+              $(".modal-body").html(contenido);
+            }
+        });
+
+}
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
