@@ -15,7 +15,9 @@
         Eliminar</button>";
         $ver3="<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar' value='".$r['idGrupo']."' onclick='selAsigGrupo(".$r['idGrupo'].")'' '>
          Asignar</button></div>" ;*/
-        $ver='<a data-toggle=\"tooltip\" data-placement=\"top\" title=\"Editar\" class=\"btn btn-primary\"><i class=\"fa fa-pencil\" aria-hidden=\"true\"></i></a>';
+         $ver = '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Editar\" class=\"btn btn-primary\" data-target=\"#modal-editar\" onclick=\"selUpdateGrupo('.$r['idGrupo'].') \"> Editar<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
+         $ver .= '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Eliminar\" class=\"btn btn-danger\" data-target=\"#modal-eliminar\" onclick=\"fnselect('.$r['idGrupo'].') \">Eliminar<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
+         $ver .= '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Asignar\" class=\"btn btn-warning\" data-target=\"#modal-asignar\" onclick=\"selAsigGrupo('.$r['idGrupo'].') \">Asignar<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
 
         
         $rows[] = $r;

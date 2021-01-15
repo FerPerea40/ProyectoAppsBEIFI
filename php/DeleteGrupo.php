@@ -1,10 +1,9 @@
 <?php
    include("conexion.php");
 
-    $id=$_POST['id'];
+    $id=$_GET['id'];
     
-
-     if(isset($id)){
+     
     $consulta="delete from grupo where idGrupo=".$id;
 	
 	$link=connect();
@@ -15,6 +14,6 @@
         $status = "err";
     }
     mysqli_close($link);
-    echo $status;die;}
+    echo $status;die;
 
 	?>
