@@ -2,10 +2,10 @@
    include("conexion.php");
 
     $id=$_POST['id'];
-    
+    $persona=$_POST['persona'];
 
      if(isset($id)){
-    $consulta="delete from agrupamiento where idAgrupamiento=".$id;
+    $consulta="delete from agrupamiento where idAgrupamiento=".$id."and Usuario_idUsuario=".$persona;
 	
 	$link=connect();
        
