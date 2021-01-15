@@ -68,6 +68,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="info">
           <a href="#" class="d-block">NotiPushUPIIZ</a>
+          <p id="usuar"> </p>
         </div>
       </div>
 
@@ -98,7 +99,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="login1.html" class="nav-link">
+                <a  id="salida" class="nav-link" onclick="salir()">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Salir</p>
                 </a>
@@ -193,5 +194,16 @@
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+<script>
+$(document).ready(function(){
+          console.log("Hola nena");
+          $('#usuar').load('php/sesioniniciada.php');
+  });
+  function salir(){
+          
+          $('#salida').load('php/logout.php');
+          window.location.replace("login1.html");
+    }
+</script>
 </body>
 </html>
