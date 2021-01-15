@@ -19,7 +19,7 @@
   <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   <script>
-  
+   
 
   $(".cuerpo-tabla ").ready(function() {
     console.log( "document loaded" );
@@ -30,6 +30,7 @@
     success: function(respuesta) {
       var resultado=JSON.parse(respuesta);
       var contenido = '';
+      var i=1;
 $.each(resultado, function(index, value) {
     contenido += '<tr>'+
        '<td>'+value.nombre+'</th>'+
@@ -37,11 +38,12 @@ $.each(resultado, function(index, value) {
        "<td>"+" <div class='form-group text-center'>"+
        "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-editar'>"+
         "Editar"+ "</button>"+
-        "<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'>"+
+        "<button id='btn' type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'  value='"+value.idGrupo+"' onclick='fnselect("+value.idGrupo+")'' '>"+
         "Eliminar"+ "</button>"+
         "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'>"+
          "Asignar"+"</button></div>"+" </td>"+ "</tr>"
     '</tr>';
+    i++;
 });
 
 $(".cuerpo-tabla").html(contenido);
@@ -209,7 +211,45 @@ $(".cuerpo-tabla").html(contenido);
     </section>
  </div>
 
+<script>
+  var grupoeliminar;
+function fnselect(i){
+ grupoeliminar=i;
+}
 
+function noeliminar(){
+grupoeliminar = '';
+}
+function sieliminar(){
+  $.ajax({
+        type:'POST',
+        url:'php/DeleteGrupo.php',
+        data:'id='+grupoeliminar,
+        beforeSend: function () {
+              $('.submitBtn').attr("disabled","disabled");
+              $('.modal-body').css('opacity', '.5');
+
+          },
+          success:function(respuesta){
+             if(respuesta == 'ok'){
+                $('.statusMsg').html('<span style="color:white;">Grupo Eliminado Exitosamente.</p>');
+                  location.reload();
+
+              }else{
+                  $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
+              }
+              $('.submitBtn').removeAttr("disabled");
+              $('.modal-body').css('opacity', '');
+              
+          }
+       });
+
+
+
+}
+
+
+</script>
 
 
 
@@ -244,30 +284,34 @@ $(".cuerpo-tabla").html(contenido);
   <!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="modal-eliminar">
+<div class="modal fade" id="modal-eliminar" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content bg-danger">
       <div class="modal-header">
         <h4 class="modal-title">Se eliminará de forma Permanente</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="Restaurar()">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+        <p class="statusMsg"></p>
+        <form role="form">
+          <div class="form-group">
         <p>¿Estás seguro que deseas eliminarlo permanentemente?&hellip;</p> 
+          </div>
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light">Eliminar</button>
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" onclick="noeliminar()">Cancelar</button>
+        <button type="button" class="btn btn-outline-light submitBtn" onclick="sieliminar()">Eliminar</button>
       </div>
     </div>
     <!-- /.modal-content -->
   </div>
   <!-- /.modal-dialog -->
+</form>
 </div>
 
 <div class="modal fade" id="modal-nuevo" role="dialog">
-
   <div class="modal-dialog">
     <div class="modal-content bg-success">
       <div class="modal-header">
@@ -283,7 +327,6 @@ $(".cuerpo-tabla").html(contenido);
         <label for="nombre">Nombre</label>
         <input type="text" class="form-control" placeholder="Enter ... " id="nombre">
       </div>
-
         <div class="form-group">
         <label for="nombre">Descripción</label>
         <textarea class="form-control" rows="3" placeholder="Enter ..." id="descripcion"></textarea>
@@ -300,18 +343,7 @@ $(".cuerpo-tabla").html(contenido);
 </form>
   <!-- /.modal-dialog -->
 </div>
-
- <!-- CREAR GRUPO-->
-<script>
-
-</script>
- <!-- /CREAR GRUPO-->
-
-
-
-
-
-
+ 
 
 <div class="modal fade" id="modal-asignar" style="overflow-y: scroll;">
  
@@ -502,7 +534,7 @@ $(".cuerpo-tabla").html(contenido);
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light" onclick="EliminarGrupo()"">Eliminar</button>
+        <button type="button" class="btn btn-outline-light" "">Eliminar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -554,7 +586,7 @@ $(".cuerpo-tabla").html(contenido);
 
 function LLenarTabla(){
   var tabla= $('#grupostable').val();
-      
+  
       }
 
 function Restaurar(){
@@ -613,12 +645,14 @@ function CreateGrupo(){
                     $('#nombre').val('');
                     $('#descripcion').val('');
                     $('.statusMsg').html('<span style="color:white;">Grupo Creado Exitosamente.</p>');
+                      location.reload();
+
                 }else{
                     $('.statusMsg').html('<span style="color:red;">Ocurrió un problema, inténtelo de nuevo.</span>');
                 }
                 $('.submitBtn').removeAttr("disabled");
                 $('.modal-body').css('opacity', '');
-                
+
             }
          });
       }

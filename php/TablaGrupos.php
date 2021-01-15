@@ -1,9 +1,7 @@
 <?php
    include("conexion.php");
 	
-	$consulta="SELECT * from grupo ";
-	
-
+	$consulta="SELECT * from grupo";
 	$link=connect();
     $respuesta = mysqli_query($link, $consulta) or die("Error al ejecutar la consulta");
     mysqli_close($link);
