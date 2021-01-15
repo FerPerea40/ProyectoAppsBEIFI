@@ -524,6 +524,7 @@ function LLenarTabla(){
 
 function Restaurar(){
   $('.statusMsg').html('<span style="color:red;">');
+    gruposel='';
  }
 
 function CreateGrupo(){
@@ -615,21 +616,22 @@ function siUpdateGrupo(){
        });
 }
 
-var gruposel;
+var gruposel='';
 
 function selAsigGrupo(i){
-  gruposel=i;
+  disponibles(i);
+  registrados(i);
+ gruposel=i;
+}
+function registrados(i){
   $.ajax({
         type:'POST',
         url:'php/selAsigGrupo.php',
-        data:'id='+gruposel,
+        data:'id='+i,
         beforeSend: function () {
-          dispobiblesdat = disponibles();
           },
           success:function(respuesta){
-            alert(respuesta)
             var resultado=JSON.parse(respuesta);
-            var contenido = '';
             var contenido2 = '';
             $.each(resultado, function(index, value) {
              contenido2+= '<tr>'+ 
@@ -645,7 +647,27 @@ function selAsigGrupo(i){
                         '</td>'+
                         '</tr>';
               });
-              $.each(disponiblesdat, function(index, value) {
+          
+              $(".cuerpo-tabla-modal2").html(contenido2);
+
+      
+            }
+        });
+
+
+}
+function disponibles(i){
+  $.ajax({
+        type:'POST',
+        url:'php/disponibles.php',
+        data:'id='+i,
+        beforeSend: function () {
+          },
+          success:function(respuesta){
+            disponiblesdat=JSON.parse(respuesta);
+            var contenido = '';
+
+            $.each(disponiblesdat, function(index, value) {
              contenido+= '<tr>'+ 
                        '<td>'+value.nombrecompleto+'</td>'+
                         '<td>'+value.tipo+' </td>'+
@@ -660,35 +682,15 @@ function selAsigGrupo(i){
                       '</div>'+
                         '</td>'+
                         '</tr>';
-              });
-              $(".cuerpo-tabla-modal").html(contenido);
-              $(".cuerpo-tabla-modal2").html(contenido2);
+            });
+            $(".cuerpo-tabla-modal").html(contenido);
 
-      
-            }
+          }
+
+  
         });
-        jQuery(document).ready(function(){
-     jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
-     jQuery(this).removeData('bs.modal');
-     jQuery(this).find('.cuerpo-tabla-modal').empty();
- })
 
-   })
 }
-
-function disponibles(){
-  $.ajax({
-        type:'POST',
-        url:'php/disponibles.php',
-        data:'id='+gruposel,
-        beforeSend: function () {
-          },
-          success:function(respuesta){
-            disponiblesdat=JSON.parse(respuesta);
-            
-            }
-        });
-      }
       function eliminarpersona(){
         
         $.ajax({
@@ -713,12 +715,6 @@ function disponibles(){
               
           }
        });
-        jQuery(document).ready(function(){
- 
-  jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
-  jQuery(this).removeData('bs.modal');
-  jQuery(this).find('.cuerpo-tabla-modal').empty();
-})})
       }
       function eliminardegrupo(){
       
@@ -744,14 +740,7 @@ function disponibles(){
               
           }
        });
-        
-        jQuery(document).ready(function(){
- 
- jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
- jQuery(this).removeData('bs.modal');
- jQuery(this).find('.cuerpo-tabla-modal').empty();
-})})
-      }
+     }
 
 
 function asignarpersona(i){
@@ -761,25 +750,27 @@ function asignarpersona(i){
           data:'id='+i+'&grupo='+gruposel,
           beforeSend: function () {
             $('.submitBtn').attr("disabled","disabled");
-                $('.modal-body').css('opacity', '.5');
+            $('.modal-body').css('opacity', '.5');
+           
             },
             success:function(respuesta){
                if(respuesta == 'ok'){
-                     selAsigGrupo(gruposel);
-                                       
+                  
                 }else{
                 }
-                $('.submitBtn').removeAttr("disabled");
+                selAsigGrupo(gruposel);
+                 $('.submitBtn').removeAttr("disabled");
                 $('.modal-body').css('opacity', '');
+           
 
             }
          });
+    
+         
 
-         jQuery(document).ready(function(){
-  jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
- jQuery(this).removeData('bs.modal');
- jQuery(this).find('.cuerpo-tabla-modal').empty();
-})})
+
+      
+  
       }
     
 $(function () {
