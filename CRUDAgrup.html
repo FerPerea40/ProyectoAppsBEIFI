@@ -37,7 +37,7 @@
         "Editar"+ "</button>"+
         "<button id='btn' type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'  value='"+value.idGrupo+"' onclick='fnselect("+value.idGrupo+")'' '>"+
         "Eliminar"+ "</button>"+
-        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar'> value='"+value.idGrupo+"' onclick='selAsigGrupo("+value.idGrupo+")'' '>"+
+        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar' value='"+value.idGrupo+"' onclick='selAsigGrupo("+value.idGrupo+")'' '>"+
          "Asignar"+"</button></div>"+" </td>"+ "</tr>"
     '</tr>';
     i++;
@@ -287,8 +287,7 @@ $( window ).on( "load", function() {
 </div>
  
 <div class="modal fade" id="modal-asignar" style="overflow-y: scroll;">
- 
-  <div class="modal-dialog modal-xl">
+   <div class="modal-dialog modal-xl">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Asignar a grupo</h4>
@@ -310,8 +309,7 @@ $( window ).on( "load", function() {
                   <div class="card">
                   <div class="card-header">
                     <h3 class="card-title">Personal Disponible</h3>
-                   
-                  </div>
+                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
                     <table id="example3" class="table table-bordered table-striped">
@@ -322,18 +320,8 @@ $( window ).on( "load", function() {
                         <th width="22%" >Acción</th>
                       </tr>
                       </thead>
-                      <tbody>
-                      <tr>
-                        <td>Grupo</td>
-                        <td>Descríbelo </td>
-                        <td>
-                          <div class="form-group row justify-content-center">
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu">
-                          Eliminar
-                        </button>
-                      </div>
-                        </td>
-                        </tr>
+                      <tbody class="cuerpo-tabla-modal">
+                     
                                       
                       </tbody>
                       <tfoot>
@@ -352,26 +340,7 @@ $( window ).on( "load", function() {
               <!-- /.col -->
         </section>
        
-        <div class="modal-body" >
-        <div class="row" >
-        <div class="col-8">
-          <label>Selecione el grupo</label>
-          <select class="form-control1" >
-            <option>option 1</option>
-            <option>option 2</option>
-            <option>option 3</option>
-            <option>option 4</option>
-            <option>option 5</option>
-          </select> 
-        </div>
-        <div class="col-4">
-          <button type="button" class="btn btn-warning float-right"  >
-            Asignar
-          </button>
-        </div>
-        </div>
-        </div>
-
+       
         <section class="content-header">
           <div class="container-fluid">
             <div class="row mb-2">
@@ -397,18 +366,8 @@ $( window ).on( "load", function() {
                         <th width = "22%" >Acción</th>
                       </tr>
                       </thead>
-                      <tbody>
-                      <tr>
-                        <td>Grupo</td>
-                        <td>Descríbelo </td>
-                        <td> 
-                          <div class="form-group row justify-content-center">
-                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-elidelgrupo">
-                          Eliminar
-                        </button>
-                          </div>
-                      </td>
-                      </tr>
+                      <tbody class="cuerpo-tabla-modal2">
+                      
                    
                       </tbody>
                       <tfoot>
@@ -640,7 +599,6 @@ function selUpdateGrupo(i){
         beforeSend: function () {
           },
           success:function(respuesta){
-            alert(respuesta)
             var resultado=JSON.parse(respuesta);
             var contenido = '';
 
@@ -685,27 +643,132 @@ function selAsigGrupo(i){
   gruposel=i;
   $.ajax({
         type:'POST',
-        url:'php/selAsigeGrupo.php',
+        url:'php/selAsigGrupo.php',
         data:'id='+gruposel,
         beforeSend: function () {
+          dispobiblesdat = disponibles();
           },
           success:function(respuesta){
             alert(respuesta)
             var resultado=JSON.parse(respuesta);
             var contenido = '';
+            var contenido2 = '';
             $.each(resultado, function(index, value) {
-              contenido= 'kjsdn';
-
-
-
-
-
-
+             contenido2+= '<tr>'+ 
+                       '<td>'+value.nombrecompleto+'</td>'+
+                        '<td>'+value.tipo+' </td>'+
+                        '<td>'+
+                         '<div class="form-group row justify-content-center">'+
+                        '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu" value="'+value.idUsuario+' onclick="eliminarpersona('+value.idUsuario+')">'+
+                          'Eliminar'+
+                        '</button>'+
+                        '<button type="button" class="btn btn-warning float-right" value="'+value.idUsuario+' onclick="asignarpersona('+value.idUsuario+')"  >'+
+           ' Asignar'+
+         '</button>'+
+                      '</div>'+
+                        '</td>'+
+                        '</tr>';
               });
-              $(".modal-body").html(contenido);
+              $.each(disponiblesdat, function(index, value) {
+             contenido+= '<tr>'+ 
+                       '<td>'+value.nombrecompleto+'</td>'+
+                        '<td>'+value.tipo+' </td>'+
+                        '<td>'+
+                         '<div class="form-group row justify-content-center">'+
+                          '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu" value="'+value.idUsuario+' onclick="eliminarpersona('+value.idUsuario+')">'+
+                          'Eliminar'+
+                        '</button>'+
+                        '<button type="button" class="btn btn-warning float-right" value="'+value.idUsuario+' onclick="asignarpersona('+value.idUsuario+')"  >'+
+           ' Asignar'+
+         '</button>'+
+                      '</div>'+
+                        '</td>'+
+                        '</tr>';
+              });
+              $(".cuerpo-tabla-modal").html(contenido);
+              $(".cuerpo-tabla-modal2").html(contenido2);
+
+      
             }
         });
+        jQuery(document).ready(function(){
+ 
+    jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
+     jQuery(this).removeData('bs.modal');
+     jQuery(this).find('.cuerpo-tabla-modal').empty();
+ })
 
+   })
+}
+function disponibles(){
+  $.ajax({
+        type:'POST',
+        url:'php/disponibles.php',
+        data:'id='+gruposel,
+        beforeSend: function () {
+          },
+          success:function(respuesta){
+            disponiblesdat=JSON.parse(respuesta);
+            
+            }
+        });
+      }
+      function eliminarpersona(){
+
+        jQuery(document).ready(function(){
+ 
+  jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
+  jQuery(this).removeData('bs.modal');
+  jQuery(this).find('.cuerpo-tabla-modal').empty();
+})})
+      }
+
+
+      function asignarpersona(){
+        
+        var nombre = $('#nombre').val();
+  var descripcion = $('#descripcion').val();
+  
+  if(nombre.trim() == '' ){
+      alert('Ingrese Nombre.');
+      $('#nombre').focus();
+      return false;
+  }else if(descripcion.trim() == '' ){
+      alert('INgresa Descripción.');
+      $('#descripcion').focus();
+      return false;
+  }else{
+       $.ajax({
+        
+          type:'POST',
+          url:'php/CreateGrupo.php',
+          data:'nombre='+nombre+'&descripcion='+descripcion,
+          beforeSend: function () {
+                $('.submitBtn').attr("disabled","disabled");
+                $('.modal-body').css('opacity', '.5');
+            },
+            success:function(respuesta){
+               if(respuesta == 'ok'){
+                    $('#nombre').val('');
+                    $('#descripcion').val('');
+                    $('.statusMsg').html('<span style="color:white;">Grupo Creado Exitosamente.</p>');
+                      location.reload();
+
+                }else{
+                    $('.statusMsg').html('<span style="color:red;">Ocurrió un problema, inténtelo de nuevo.</span>');
+                }
+                $('.submitBtn').removeAttr("disabled");
+                $('.modal-body').css('opacity', '');
+
+            }
+         });
+      }
+jQuery(document).ready(function(){
+
+jQuery('#modal-asignar').on('hidden.bs.modal', function (e) {
+jQuery(this).removeData('bs.modal');
+jQuery(this).find('.cuerpo-tabla-modal').empty();
+})})
 }
   $(function () {
     $("#example1").DataTable({

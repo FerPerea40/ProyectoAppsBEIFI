@@ -1,7 +1,8 @@
 <?php
    include("conexion.php");
-	$id=$_POST['id'];
-    $consulta="SELECT * FROM usuario INNER JOIN agrupamiento INNER JOIN grupo ON usuario.idUsuario = agrupamiento.Usuario_idUsuario and grupo.idGrupo = agrupamiento.Grupo_idGrupo where grupo.IdGrupo = ".$id;
+    $id=$_POST['idNotificacion'];
+    $consulta="SELECT notificacion.titulo, notificacion.descripcion, notificacion.fecha, grupo.nombre FROM notificacion INNER JOIN grupo ON notificacion.Grupo_idGrupo = grupo.idGrupo where notificacion.idNotificacion ='" . $id . "'";
+    
 	$link=connect();
     $respuesta = mysqli_query($link, $consulta) or die("Error al ejecutar la consulta");
     
@@ -11,4 +12,5 @@
     }
     echo json_encode($rows);
     mysqli_close($link);
-	?>
+    
+?>
