@@ -5,7 +5,7 @@
     
 
      if(isset($id)){
-    $consulta="delete from usuario where idUsuario=".$id;
+    $consulta="delete from agrupamiento where idAgrupamiento=".$id;
 	
 	$link=connect();
        
