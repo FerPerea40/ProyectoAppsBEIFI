@@ -24,9 +24,9 @@
     <div class="card-body">
       <p class="login-box-msg">Inicia sesión</p>
 
-      <form action="../../index3.html" method="post">
+      <form action="" method="">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" id="usuario">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" id="clave">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -47,7 +47,7 @@
           </div>
           <!-- /.col -->
           <div class="col-4 text-center">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-block" onclick="iniciar()">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -70,5 +70,41 @@
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script>
+   function iniciar(){
+        var usuario = $("#usuario").val();
+        var clave = $("#clave").val();
+        console.log(usuario);
+          console.log(clave);
+          if(usuario.trim() == '' ){
+              alert('Digita el nombre.');
+              $('#nombre').focus();
+              return false;
+          }else if(clave.trim() == '' ){
+              alert('Digita la clave.');
+              $('#descripcion').focus();
+              return false;
+          }else{
+            $.ajax({
+                
+                method:"GET",
+                url:"php/validar.php",
+                data:"usuario="+usuario+"&clave="+clave,
+                DataType: 'json',
+                success: function(respuesta) {
+                    var resultado=JSON.parse(respuesta);
+                    if(resultado.estado == 1){
+                    window.location.replace("menu.html");
+                    }else{
+                    alert("Datos incorrectos");
+                   $("#usuario").val('');
+                    $("#clave").val('');
+                   }
+              }
+          });
+        }
+      }
+</script>
 </body>
 </html>
+
