@@ -411,8 +411,8 @@ $( window ).on( "load", function() {
         <p>¿Estás seguro que deseas eliminarlo permanentemente?&hellip;</p> 
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light" onclick="eliminarP()">Eliminar</button>
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" onclick="noeliminar()">Cancelar</button>
+        <button type="button" class="btn btn-outline-light submitBtn" onclick="eliminarP()">Eliminar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -528,7 +528,7 @@ function eliminarP(){
           },
           success:function(respuesta){
              if(respuesta == 'ok'){
-                $('.statusMsg').html('<span style="color:white;">Grupo Eliminado Exitosamente.</p>');
+                $('.statusMsg').html('<span style="color:white;">persona Eliminado Exitosamente.</p>');
                   location.reload();
 
               }else{
@@ -659,7 +659,7 @@ function selAsigGrupo(i){
                         '<td>'+value.tipo+' </td>'+
                         '<td>'+
                          '<div class="form-group row justify-content-center">'+
-                        '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu" value="'+value.idUsuario+' onclick="eliminarpersona('+value.idUsuario+')">'+
+                        '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu" value="'+value.idUsuario+' onclick="eliminaP('+value.idUsuario+')">'+
                           'Eliminar'+
                         '</button>'+
                         '<button type="button" class="btn btn-warning float-right" value="'+value.idUsuario+' onclick="asignarpersona('+value.idUsuario+')"  >'+
