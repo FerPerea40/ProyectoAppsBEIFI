@@ -905,7 +905,7 @@
                   <tr>
                     <td>Asunto de la Notificacion</td>
                     <td>Grupo</td>
-                    <td> <button onclick="location.href='ListaNotificacion.html'" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">
+                    <td> <button  type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-primary">
                       Ver
                     </button>
                     
@@ -933,31 +933,42 @@
     <!-- /.content -->
   </div>
 
-<div class="modal fade" id="modal-primary">
-  <div class="modal-dialog">
-    <div class="modal-content bg-primary">
-      <div class="modal-header">
-        <h4 class="modal-title">Editar Grupo</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="modal fade" id="modal-primary">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Nueva Notificacion</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Asunto:</p>
+        </div>
+        <div class="modal-body">
+          <p>Destinatarios:</p>
+        </div>
+        <div class="modal-body">
+          <p>Descripción:</p>
+        </div>
+        <div class="modal-body">
+          <p>Fecha:</p>
+        </div>
+       
+
+      
+        <div class="modal-footer justify-content-between">
+          
+          
+          <button type="button" class="btn btn-primary">Cerrar</button>
+        </div>
       </div>
-      <div class="modal-body">
-        <label>Nombre</label>
-        <input type="text" class="form-control" placeholder="Enter ...">
-        <label>Descripción</label>
-        <textarea class="form-control" rows="3" placeholder="Enter ..."></textarea>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light">Guardar Cambios</button>
-      </div>
+      <!-- /.modal-content -->
     </div>
-    <!-- /.modal-content -->
+    <!-- /.modal-dialog -->
   </div>
-  <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
+
+
 
 <div class="modal fade" id="modal-danger">
   <div class="modal-dialog">

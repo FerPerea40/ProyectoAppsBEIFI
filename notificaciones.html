@@ -147,43 +147,8 @@
                     <th width = "15%" >Acción</th>
                   </tr>
                   </thead>
-                  <tbody class="tbody1">
-                  <!--tr>
-                    <td>Becas</td>
-                    <td>Todos </td>
-                    <td>
-                      <div class="form-group row justify-content-center"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default2">
-                        Ver
-                      </button></div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Credenciales</td>
-                    <td>Todos </td>
-                    <td>
-                      <div class="form-group row justify-content-center"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default2">
-                        Ver
-                      </button></div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>BEIFI</td>
-                    <td>Grupo BEIFI </td>
-                    <td>
-                      <div class="form-group row justify-content-center"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default2">
-                        Ver
-                      </button></div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Delfin</td>
-                    <td>Grupo Delfin </td>
-                    <td>
-                      <div class="form-group row justify-content-center"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default2">
-                        Ver
-                      </button></div>
-                    </td>
-                  </tr>  -->             
+                  <tbody>
+                            
                   </tbody> 
                   <tfoot>
                   <tr>
@@ -508,8 +473,17 @@
   });*/
   $(function () {
     $("#example1").DataTable({
+      "ajax": {
+            "url": "php/tablaNotificaciones.php",
+            "type": "POST"
+        },
+        "columns": [
+            { "data": "Asunto" },
+            { "data": "Grupo" },
+            { "data": "Acción" }
+        ],
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
@@ -574,7 +548,7 @@
       }
     }
     
-  $(".tbody1 ").ready(function() {
+ /* $(".tbody1 ").ready(function() {
     console.log( "document loaded" );
     $.ajax({
     url: 'php/tablaNotificaciones.php',
@@ -598,7 +572,7 @@ $.each(resultado, function(index, value) {
 $(".tbody1").html(contenido);
         }
          });
-        });
+        });*/
         $( window ).on( "load", function() {
       console.log( "window loaded" );
    
