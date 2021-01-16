@@ -20,61 +20,6 @@
   <script src="https://code.jquery.com/jquery-2.2.4.js"></script>
   <script>
 
-$(function () {
-    $("#example1").DataTable({
-      "ajax": {
-            "url": "php/TablaGrupos.php",
-            "type": "POST"
-        },
-        "columns": [
-            { "data": "Nombre" },
-            { "data": "Descripcion" },
-            { "data": "Accion" }
-        ],
-  
-
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  });
- /*   $(".cuerpo-tabla ").ready(function() {
-    $.ajax({
-    url: 'php/TablaGrupos.php',
-    type: 'POST',
-    DataType: 'json',
-    success: function(respuesta) {
-      var resultado=JSON.parse(respuesta);
-      var contenido = '';
-      var i=1;
-  $.each(resultado, function(index, value) {
-    contenido += '<tr>'+
-       '<td>'+value.nombre+'</th>'+
-       '<td>'+value.descripcion+'</td>'+
-       "<td>"+" <div class='form-group text-center'>"+
-       "<button type='button' class='btn btn-primary' data-toggle='modal' data-target='#modal-editar' value='"+value.idGrupo+"' onclick='selUpdateGrupo("+value.idGrupo+")'' '>"+
-        "Editar"+ "</button>"+
-        "<button id='btn' type='button' class='btn btn-danger' data-toggle='modal' data-target='#modal-eliminar'  value='"+value.idGrupo+"' onclick='fnselect("+value.idGrupo+")'' '>"+
-        "Eliminar"+ "</button>"+
-        "<button type='button' class='btn btn-warning' data-toggle='modal' data-target='#modal-asignar' value='"+value.idGrupo+"' onclick='selAsigGrupo("+value.idGrupo+")'' '>"+
-         "Asignar"+"</button></div>"+" </td>"+ "</tr>"
-    '</tr>';
-    i++;
-});
-$(".cuerpo-tabla").html(contenido);
-   }
-  });
-});
-$( window ).on( "load", function() {
-  });*/
   </script>
 
 </head>
@@ -415,7 +360,7 @@ $( window ).on( "load", function() {
       </div>
       <div class="modal-footer justify-content-between">
         <p></p>
-      <button type="button" data-dismiss="modal" class="btn btn-primary">Cerrar</button>
+      <button type="button" data-dismiss="modal" class="btn btn-primary" onclick="destuirtabla()">Cerrar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -519,7 +464,32 @@ $( window ).on( "load", function() {
 <!-- Page specific script -->
 <script>
 
+$(function () {
+    $("#example1").DataTable({
+      "ajax": {
+            "url": "php/TablaGrupos.php",
+            "type": "POST"
+        },
+        "columns": [
+            { "data": "Nombre" },
+            { "data": "Descripcion" },
+            { "data": "Accion" }
+        ],
+  
 
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
 
 
 
@@ -555,11 +525,6 @@ function sieliminar(){
 
 
 }
-
-function LLenarTabla(){
-  var tabla= $('#grupostable').val();
-  
-      }
 
 function Restaurar(){
   $('.statusMsg').html('<span style="color:red;">');
@@ -655,14 +620,84 @@ function siUpdateGrupo(){
        });
 }
 
-var gruposel='';
-var personaeli='';
+var gruposel;
+var personaeli;
+
+
 function selAsigGrupo(i){
   disponibles(i);
   registrados(i);
+
  gruposel=i;
 }
+
 function registrados(i){
+  alert(i);
+
+  $(function () {
+    $("#example4").DataTable({
+      "ajax": {
+            "url": "php/selAsigGrupo.php?id="+i,
+            "type": "GET",
+        },
+        "columns": [
+            { "data": "Nombre" },
+            { "data": "Funcion" },
+            { "data": "Accion" }
+        ],
+  
+
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
+    }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+
+  /*
+
+  $.ajax({
+        type:'POST',
+        url:'php/selAsigGrupo.php',
+        data:'id='+i,
+        beforeSend: function () {
+          },
+          success:function (respuesta) {
+    $("#example4").DataTable({
+    
+        "columns": [
+            { respuesta: "Nombre" },
+            { respuesta: "Funcion" },
+            { respuesta: "Accion" }
+        ],
+  
+
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
+    }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  }
+        });*/
+
+
+}
+
+/*function registrados(i){
   $.ajax({
         type:'POST',
         url:'php/selAsigGrupo.php',
@@ -694,8 +729,79 @@ function registrados(i){
         });
 
 
-}
+}*/
+
+
+
 function disponibles(i){
+  alert(i);
+
+$(function () {
+  $("#example3").DataTable({
+    "ajax": {
+          "url": "php/disponibles.php?id="+i,
+          "type": "GET",
+         
+      },
+      "columns": [
+          { "data": "Nombre" },
+          { "data": "Funcion" },
+          { "data": "Accion" }
+      ],
+
+
+    "responsive": true, "lengthChange": false, "autoWidth": false,
+    "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
+  }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+  $('#example2').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": false,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+  });
+});
+
+  /*
+  $.ajax({
+        type:'POST',
+        url:'php/disponibles.php',
+        data:'id='+i,
+        beforeSend: function () {
+          },
+          success:function (respuesta) {
+    $("#example3").DataTable({
+    
+        "columns": [
+            { respuesta: "Nombre" },
+            { respuesta: "Funcion" },
+            { respuesta: "Accion" }
+        ],
+  
+
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
+    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  }
+        });
+*/
+
+
+}
+
+
+/*function disponibles(i){
   $.ajax({
         type:'POST',
         url:'php/disponibles.php',
@@ -729,7 +835,7 @@ function disponibles(i){
   
         });
 
-}
+}*/
       function seleliminarpersona(i){
             personaeli=i;
       }
@@ -787,6 +893,7 @@ function disponibles(i){
 
 
 function asignarpersona(i){
+  alert("persona:"+i);
        $.ajax({
           type:'POST',
           url:'php/asignarpersona.php',
@@ -816,19 +923,7 @@ function asignarpersona(i){
   
       }
     
-$(function () {
 
-      
-    $("#example3").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-    
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-
-    $("#example4").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false
-     
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-  });
   
   function salir(){
     
