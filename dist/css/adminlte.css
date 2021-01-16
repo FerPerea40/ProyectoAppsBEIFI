@@ -28388,7 +28388,9 @@ select.form-control-sm ~ .select2-container--default .select2-selection--multipl
 .pace-center-radar-gray-dark .pace .pace-activity::before {
   border-color: #343a40 transparent transparent;
 }
-
+.uniqueClassName {
+    text-align: center;
+}
 .pace-center-simple-gray-dark .pace {
   background: #fff;
   border-color: #343a40;
