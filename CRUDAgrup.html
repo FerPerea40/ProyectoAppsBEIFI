@@ -622,7 +622,9 @@ function siUpdateGrupo(){
 
 var gruposel;
 var personaeli;
-
+var table=$('#example3').DataTable();;
+var table2=$('#example4').DataTable();
+;
 
 function selAsigGrupo(i){
   disponibles(i);
@@ -635,7 +637,9 @@ function registrados(i){
   alert(i);
 
   $(function () {
-    $("#example4").DataTable({
+    table2.destroy();
+$('#example4').empty();
+   table2= $("#example4").DataTable({
       "ajax": {
             "url": "php/selAsigGrupo.php?id="+i,
             "type": "GET",
@@ -737,7 +741,9 @@ function disponibles(i){
   alert(i);
 
 $(function () {
-  $("#example3").DataTable({
+  table.destroy();
+$('#example3').empty();
+ table= $("#example3").DataTable({
     "ajax": {
           "url": "php/disponibles.php?id="+i,
           "type": "GET",
