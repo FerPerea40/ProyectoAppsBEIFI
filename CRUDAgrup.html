@@ -491,10 +491,19 @@ $(function () {
     });
   });
 
+var table=$('#example3').DataTable();
+var table2=$('#example4').DataTable();
+var titulos = [
+            { "title": "Nombre", "targets": 0 },
+            { "title": "Función", "targets": 1 },
+            { "title": "Acción",width: "20%", "targets": 2 }
+        ];
+var gruposel;
 
 
-
-function fnselect(i){gruposel=i;}
+function fnselect(i){
+  gruposel=i;
+}
 
 function noeliminar(){gruposel = '';}
 
@@ -525,7 +534,6 @@ function sieliminar(){
 
 
 }
-
 function Restaurar(){
   $('.statusMsg').html('<span style="color:red;">');
     gruposel='';
@@ -620,27 +628,16 @@ function siUpdateGrupo(){
        });
 }
 
-var gruposel;
-var personaeli;
-var table=$('#example3').DataTable();
-var table2=$('#example4').DataTable();
-var titulos = [
-            { "title": "Nombre", "targets": 0 },
-            { "title": "Función", "targets": 1 },
-            { "title": "Acción",width: "22%", "targets": 2 }
-        ];
 
 function selAsigGrupo(i){
+  gruposel=i;
+  alert("Grupo seleccionado:"+i);
   disponibles(i);
   registrados(i);
-
- gruposel=i;
 }
 
 function registrados(i){
-  alert(i);
-
-  $(function () {
+$(function () {
     table2.destroy();
 $('#example4').empty();
    table2= $("#example4").DataTable({
@@ -653,9 +650,7 @@ $('#example4').empty();
             { "data": "Funcion" },
             { "data": "Accion" }
         ],
-        "columnDefs": titulos,
-
-
+      "columnDefs": titulos,
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
     }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
@@ -672,9 +667,7 @@ $('#example4').empty();
 }
 
 function disponibles(i){
-  alert(i);
-
-$(function () {
+  $(function () {
   table.destroy();
 $('#example3').empty();
 
@@ -733,7 +726,8 @@ function eliminarpersona(){
               selAsigGrupo(gruposel);
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
-              
+              gruposel='';
+              personaeli='';
           }
        });
       }
@@ -758,7 +752,8 @@ function eliminardegrupo(){
               }
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
-              
+              gruposel='';
+              personaeli='';
           }
        });
      }
@@ -766,9 +761,8 @@ function eliminardegrupo(){
 function asignarpersona(i){
   alert("persona:"+i);
        $.ajax({
-          type:'POST',
-          url:'php/asignarpersona.php',
-          data:'id='+i+'&grupo='+gruposel,
+          type:'GET',
+          url:'php/asignarpersona.php?id='+i+'&grupo='+gruposel,
           beforeSend: function () {
             $('.submitBtn').attr("disabled","disabled");
             $('.modal-body').css('opacity', '.5');
@@ -782,7 +776,7 @@ function asignarpersona(i){
                 selAsigGrupo(gruposel);
                  $('.submitBtn').removeAttr("disabled");
                 $('.modal-body').css('opacity', '');
-           
+                gruposel='';
 
             }
          });
@@ -801,7 +795,6 @@ function salir(){
           window.location.replace("login1.html");
          
     }
-   
    
     /* $(document).ready(function(){
           console.log("Hola nena");

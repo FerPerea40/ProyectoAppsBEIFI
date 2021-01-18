@@ -2,10 +2,10 @@
 <?php
     include("conexion.php");
   
-    $id = $_POST['id'];
-    $grupo = $_POST['grupo'];
+    $id = $_GET['id'];
+    $grupo = $_GET['grupo'];
 
-
+echo $grupo;
     $consulta  = "INSERT INTO `agrupamiento` (`idAgrupamiento`, `Usuario_idUsuario`, `Grupo_idGrupo`)";
     $consulta  .= "VALUES (NULL, ";
     $consulta  .= "'".$id."',";
