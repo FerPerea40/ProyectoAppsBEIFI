@@ -330,7 +330,7 @@
                   <div class="card-body">
                     <table id="example4" class="table table-bordered table-striped">
                       <thead>
-                      <tr>
+                    <tr>
                         <th>Nombre</th>
                         <th>Función</th>
                         <th width = "22%" >Acción</th>
@@ -622,9 +622,13 @@ function siUpdateGrupo(){
 
 var gruposel;
 var personaeli;
-var table=$('#example3').DataTable();;
+var table=$('#example3').DataTable();
 var table2=$('#example4').DataTable();
-;
+var titulos = [
+            { "title": "Nombre", "targets": 0 },
+            { "title": "Función", "targets": 1 },
+            { "title": "Acción",width: "22%", "targets": 2 }
+        ];
 
 function selAsigGrupo(i){
   disponibles(i);
@@ -644,12 +648,13 @@ $('#example4').empty();
             "url": "php/selAsigGrupo.php?id="+i,
             "type": "GET",
         },
-        "columns": [
+           "columns": [
             { "data": "Nombre" },
             { "data": "Funcion" },
             { "data": "Accion" }
         ],
-  
+        "columnDefs": titulos,
+
 
       "responsive": true, "lengthChange": false, "autoWidth": false,
       "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
@@ -664,78 +669,7 @@ $('#example4').empty();
       "responsive": true,
     });
   });
-
-  /*
-
-  $.ajax({
-        type:'POST',
-        url:'php/selAsigGrupo.php',
-        data:'id='+i,
-        beforeSend: function () {
-          },
-          success:function (respuesta) {
-    $("#example4").DataTable({
-    
-        "columns": [
-            { respuesta: "Nombre" },
-            { respuesta: "Funcion" },
-            { respuesta: "Accion" }
-        ],
-  
-
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
-    }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
-  }
-        });*/
-
-
 }
-
-/*function registrados(i){
-  $.ajax({
-        type:'POST',
-        url:'php/selAsigGrupo.php',
-        data:'id='+i,
-        beforeSend: function () {
-          },
-          success:function(respuesta){
-            var resultado=JSON.parse(respuesta);
-            var contenido2 = '';
-            $.each(resultado, function(index, value) {
-             contenido2+= '<tr>'+ 
-                       '<td>'+value.nombrecompleto+'</td>'+
-                        '<td>'+value.tipo+' </td>'+
-                        '<td>'+
-                         '<div class="form-group row justify-content-center">'+
-                        '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-elidelgrupo" value="'+value.idAgrupamiento+' onclick="selelipersona('+value.idAgrupamiento+')">'+
-                          'Eliminar'+
-                    
-         '</button>'+
-                      '</div>'+
-                        '</td>'+
-                        '</tr>';
-              });
-          
-              $(".cuerpo-tabla-modal2").html(contenido2);
-
-      
-            }
-        });
-
-
-}*/
-
-
 
 function disponibles(i){
   alert(i);
@@ -743,6 +677,7 @@ function disponibles(i){
 $(function () {
   table.destroy();
 $('#example3').empty();
+
  table= $("#example3").DataTable({
     "ajax": {
           "url": "php/disponibles.php?id="+i,
@@ -755,6 +690,7 @@ $('#example3').empty();
           { "data": "Accion" }
       ],
 
+      "columnDefs": titulos,
 
     "responsive": true, "lengthChange": false, "autoWidth": false,
     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
@@ -770,82 +706,13 @@ $('#example3').empty();
   });
 });
 
-  /*
-  $.ajax({
-        type:'POST',
-        url:'php/disponibles.php',
-        data:'id='+i,
-        beforeSend: function () {
-          },
-          success:function (respuesta) {
-    $("#example3").DataTable({
-    
-        "columns": [
-            { respuesta: "Nombre" },
-            { respuesta: "Funcion" },
-            { respuesta: "Accion" }
-        ],
-  
-
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"] 
-    }).buttons().container().appendTo('#example3_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
-    });
   }
-        });
-*/
 
-
-}
-
-
-/*function disponibles(i){
-  $.ajax({
-        type:'POST',
-        url:'php/disponibles.php',
-        data:'id='+i,
-        beforeSend: function () {
-          },
-          success:function(respuesta){
-            disponiblesdat=JSON.parse(respuesta);
-            var contenido = '';
-
-            $.each(disponiblesdat, function(index, value) {
-             contenido+= '<tr>'+ 
-                       '<td>'+value.nombrecompleto+'</td>'+
-                        '<td>'+value.tipo+' </td>'+
-                        '<td>'+
-                         '<div class="form-group row justify-content-center">'+
-                          '<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-eliminaralu" value="'+value.idUsuario+' onclick="seleliminarpersona('+value.idUsuario+')">'+
-                          'Eliminar'+ 
-                        '</button>'+
-                        '<button type="button" class="btn btn-warning float-right submitBtn" value="'+value.idUsuario+'" onclick="asignarpersona('+value.idUsuario+')"  >'+
-           ' Asignar'+
-         '</button>'+
-                      '</div>'+
-                        '</td>'+
-                        '</tr>';
-            });
-            $(".cuerpo-tabla-modal").html(contenido);
-
-          }
-
-  
-        });
-
-}*/
-      function seleliminarpersona(i){
+function seleliminarpersona(i){
             personaeli=i;
       }
-      function eliminarpersona(){
+
+function eliminarpersona(){
         
         $.ajax({
         type:'POST',
@@ -871,8 +738,7 @@ $('#example3').empty();
        });
       }
   
-  
-      function eliminardegrupo(){
+function eliminardegrupo(){
       
         $.ajax({
         type:'POST',
@@ -896,7 +762,6 @@ $('#example3').empty();
           }
        });
      }
-
 
 function asignarpersona(i){
   alert("persona:"+i);
@@ -929,16 +794,16 @@ function asignarpersona(i){
   
       }
     
-
-  
-  function salir(){
+function salir(){
     
           $('#salida').load('php/logout.php');
           
           window.location.replace("login1.html");
          
     }
-   /* $(document).ready(function(){
+   
+   
+    /* $(document).ready(function(){
           console.log("Hola nena");
           $('#usuar').load('php/sesioniniciada.php');
    });*/
