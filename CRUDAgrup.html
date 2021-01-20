@@ -760,6 +760,7 @@ function eliminardegrupo(){
 
 function asignarpersona(i){
   alert("persona:"+i);
+  location.reload();
        $.ajax({
           type:'GET',
           url:'php/asignarpersona.php?id='+i+'&grupo='+gruposel,
