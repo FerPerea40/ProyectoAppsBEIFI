@@ -1,7 +1,7 @@
 <?php
    include("conexion.php");
 
-    $id=$_GET['id'];
+    $id=$_POST['id'];
     
      
     $consulta="delete from grupo where idGrupo=".$id;
