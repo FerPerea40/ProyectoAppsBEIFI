@@ -638,9 +638,9 @@ function selAsigGrupo(i){
 
 function registrados(i){
 $(function () {
-    table2.destroy();
 $('#example4').empty();
    table2= $("#example4").DataTable({
+    "destroy":true,
       "ajax": {
             "url": "php/selAsigGrupo.php?id="+i,
             "type": "GET",
@@ -668,10 +668,11 @@ $('#example4').empty();
 
 function disponibles(i){
   $(function () {
-  table.destroy();
 $('#example3').empty();
 
  table= $("#example3").DataTable({
+  "destroy":true,
+
     "ajax": {
           "url": "php/disponibles.php?id="+i,
           "type": "GET",
@@ -760,7 +761,6 @@ function eliminardegrupo(){
 
 function asignarpersona(i){
   alert("persona:"+i);
-  location.reload();
        $.ajax({
           type:'GET',
           url:'php/asignarpersona.php?id='+i+'&grupo='+gruposel,
