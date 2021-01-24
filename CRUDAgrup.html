@@ -182,13 +182,11 @@
         </button>
       </div>
       <div class="modal-body">
-       
-
 
       </div>
       <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-outline-light" onclick="siUpdateGrupo()">Guardar Cambios</button>
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal" onclick="location.reload();">Cancelar</button>
+        <button type="button" class="btn btn-outline-light submitBtn" onclick="siUpdateGrupo()">Guardar Cambios</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -386,7 +384,7 @@
     </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-outline-light" data-dismiss="modal" >Cancelar</button>
-        <button type="button" class="btn btn-outline-light submitBtn" onclick="eliminarpersona()" >Eliminar</button>
+        <button type="button" class="btn btn-outline-light " onclick="eliminarpersona()" >Eliminar</button>
       </div>
     </div>
     <!-- /.modal-content -->
@@ -521,10 +519,15 @@ function sieliminar(){
              if(respuesta == 'ok'){
                 $('.statusMsg').html('<span style="color:white;">Grupo Eliminado Exitosamente.</p>');
                   location.reload();
-
-              }else{
-                  $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
               }
+             else{
+                if(respuesta == 'errr'){
+                    $('.statusMsg').html('<span style="color:white;">No se puede eliminar, alumnos y/o notificaciones existentes</p>');
+                  //location.reload();
+                 }else{
+                     $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
+                 }
+                }
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
               
@@ -536,6 +539,7 @@ function sieliminar(){
 }
 function Restaurar(){
   $('.statusMsg').html('<span style="color:red;">');
+
  }
 
 function CreateGrupo(){
@@ -721,13 +725,18 @@ function eliminarpersona(){
 
           },
           success:function(respuesta){
-             if(respuesta == 'ok'){
-                $('.statusMsg').html('<span style="color:white;">Persona Eliminado Exitosamente.</p>');
-
-              }else{
-                  $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
+            if(respuesta == 'ok'){
+                $('.statusMsg').html('<span style="color:white;">Personal Eliminado Exitosamente, de fomra permanente.</p>');
               }
-              selAsigGrupo(gruposel);
+             else{
+                if(respuesta == 'errr'){
+                    $('.statusMsg').html('<span style="color:white;">No se puede eliminar, pertenece a otros grupos</p>');
+                  //location.reload();
+                 }else{
+                     $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
+                 }
+                }
+                selAsigGrupo(gruposel);
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
          
