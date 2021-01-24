@@ -536,7 +536,6 @@ function sieliminar(){
 }
 function Restaurar(){
   $('.statusMsg').html('<span style="color:red;">');
-    gruposel='';
  }
 
 function CreateGrupo(){
@@ -544,11 +543,9 @@ function CreateGrupo(){
   var descripcion = $('#descripcion').val();
   
   if(nombre.trim() == '' ){
-      alert('Ingrese Nombre.');
       $('#nombre').focus();
       return false;
   }else if(descripcion.trim() == '' ){
-      alert('INgresa Descripción.');
       $('#descripcion').focus();
       return false;
   }else{
@@ -631,12 +628,12 @@ function siUpdateGrupo(){
 
 function selAsigGrupo(i){
   gruposel=i;
-  alert("Grupo seleccionado:"+i);
   disponibles(i);
   registrados(i);
 }
 
 function registrados(i){
+  gruposel=i;
 $(function () {
 $('#example4').empty();
    table2= $("#example4").DataTable({
@@ -667,6 +664,7 @@ $('#example4').empty();
 }
 
 function disponibles(i){
+  gruposel=i;
   $(function () {
 $('#example3').empty();
 
@@ -702,6 +700,11 @@ $('#example3').empty();
 
   }
 
+
+
+
+
+
 function seleliminarpersona(i){
             personaeli=i;
       }
@@ -727,14 +730,12 @@ function eliminarpersona(){
               selAsigGrupo(gruposel);
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
-              gruposel='';
-              personaeli='';
+         
           }
        });
       }
   
 function eliminardegrupo(){
-      
         $.ajax({
         type:'POST',
         url:'php/DeleteAgrup.php',
@@ -746,21 +747,21 @@ function eliminardegrupo(){
           },
           success:function(respuesta){
              if(respuesta == 'ok'){
-                $('.statusMsg').html('<span style="color:white;">persona Eliminado Exitosamente.</p>');
+                $('.statusMsg').html('<span style="color:white;">Personal Eliminado Exitosamente.</p>');
 
               }else{
                   $('.statusMsg').html('<span style="color:white;">Ocurrió un problema, inténtelo de nuevo.</span>');
               }
+              selAsigGrupo(gruposel);
               $('.submitBtn').removeAttr("disabled");
               $('.modal-body').css('opacity', '');
-              gruposel='';
-              personaeli='';
+         
           }
        });
      }
 
+
 function asignarpersona(i){
-  alert("persona:"+i);
        $.ajax({
           type:'GET',
           url:'php/asignarpersona.php?id='+i+'&grupo='+gruposel,
@@ -777,7 +778,7 @@ function asignarpersona(i){
                 selAsigGrupo(gruposel);
                  $('.submitBtn').removeAttr("disabled");
                 $('.modal-body').css('opacity', '');
-                gruposel='';
+              
 
             }
          });

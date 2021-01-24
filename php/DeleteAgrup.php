@@ -4,8 +4,8 @@
     $id=$_POST['id'];
     $persona=$_POST['persona'];
 
-     if(isset($id)){
-    $consulta="delete from agrupamiento where idAgrupamiento=".$id."and Usuario_idUsuario=".$persona;
+    
+    $consulta="delete from agrupamiento where Grupo_idGrupo=".$id." and Usuario_idUsuario=".$persona;
 	
 	$link=connect();
        
@@ -15,6 +15,6 @@
         $status = "err";
     }
     mysqli_close($link);
-    echo $status;die;}
+    echo $status;die;
 
 	?>

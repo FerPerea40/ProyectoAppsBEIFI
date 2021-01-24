@@ -14,8 +14,8 @@
     
     while ($r = mysqli_fetch_assoc($respuesta)) {
       
-         $ver = '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Eliminar\" class=\"btn btn-danger\" data-target=\"#modal-eliminar\" onclick=\"seleliminarpersona('.$r['idUsuario'].') \">Eliminar<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
-         $ver .= '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Asignar\" class=\"btn btn-warning\" data-target=\"#modal-asignar\" onclick=\"asignarpersona('.$r['idUsuario'].') \">Asignar<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
+         $ver = '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Eliminar\" class=\"btn btn-danger\" data-target=\"#modal-eliminaralu\" onclick=\"seleliminarpersona('.$r['idUsuario'].') \">Eliminar<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
+         $ver .= '<a href=\"\" data-toggle=\"modal\" data-placement=\"top\" title=\"Asignar\" class=\"btn btn-warning\" data-target=\"\" onclick=\"asignarpersona('.$r['idUsuario'].') \">Asignar<i class=\"fa fa-pencil\"  aria-hidden=\"true\" ></i></a>';
 
         
         $rows[] = $r;
