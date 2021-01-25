@@ -11,8 +11,8 @@ switch($_SERVER['REQUEST_METHOD']){
    break;
 
    case 'GET':
-      if(isset($_GET['boleta'])){
-          actionGetOneEmpleado($_GET['boleta']);
+      if(isset($_GET['idUsuario'])){
+          actionGetOneEmpleado($_GET['idUsuario']);
        }else{
           actionGetAllEmpleado();
        }
@@ -85,25 +85,28 @@ function actionGetOneEmpleado($boleta){
     $link=connect();
 
     if($link){
-        $query="SELECT * FROM usuario where boleta = $boleta";
+        $query="SELECT * FROM usuario INNER JOIN agrupamiento ON $boleta = agrupamiento.Usuario_idUsuario  INNER JOIN notificacion ON agrupamiento.Grupo_idGrupo = notificacion.Grupo_idGrupo";
+       // $query="SELECT * FROM usuario where boleta = $boleta";
 
-        $respuesta['usuarios']=array();
+        $respuesta['notificaciones']=array();
 
         $registros = mysqli_query($link,$query);
 
         while($renglon=mysqli_fetch_array($registros)){
-
+            
             $programa = array();
-            $programa['idUsuario']	=$renglon['idUsuario'];	
-            $programa['nombrecompleto']	=$renglon['nombrecompleto'];
-            $programa['boleta']=$renglon['boleta'];
-            $programa['token']=$renglon['token'];
-            $programa['tipo']=$renglon['tipo'];
-            $programa['Programa_idPrograma']=$renglon['Programa_idPrograma'];
+            $programa['idNotificacion']	=$renglon['idNotificacion'];
+            $programa['titulo']	=$renglon['titulo'];	
+            $programa['descripcion']=$renglon['descripcion'];
+            
+          if(in_array($renglon['idNotificacion'],$respuesta['notificaciones'])){
 
-          array_push($respuesta['usuarios'], $programa); 
+          }else{
+            array_push($respuesta['notificaciones'], $programa); 
+          }
+          
         }
-        if($respuesta['usuarios']!=NULL){
+        if($respuesta['notificaciones']!=NULL){
         $respuesta['estatus']=1;
         $respuesta['mensaje']='Consulta Existosa';
 
